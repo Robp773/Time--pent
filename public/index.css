@@ -1,0 +1,55 @@
+header{
+  font-size: 35px;
+}
+
+.plannedName, .plannedCost{
+  display: inline-block;
+  align-content: center;
+}
+.plannedName{
+  width: 70%;
+  border-right: 1px solid black;
+}
+.plannedCost{
+  width: 25%;
+}
+
+h4{
+  text-align: left;
+}
+
+.topNavRow{
+  font-size: 0;
+}
+header, #topNavButtons, #topNavDateTime{
+  text-align: center;
+  width: 33%;
+  display: inline-block;
+}
+.results{
+  border-top: 1px solid black
+}
+.recordedName, .recordedCost{
+  display: inline-block;
+  
+}
+.recordedName{
+  width: 60%;
+  border-right: 1px solid black;
+}
+.recordedCost{
+  width: 20%;
+}
+.display{
+  text-align: center;
+  border: 1px solid black;
+  display: inline-block;
+}
+.recorded{
+  background: red;
+}
+.planned{
+  background: blue;
+}
+.totals{
+  background: orange;
