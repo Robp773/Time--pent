@@ -2,33 +2,192 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const {DATABASE_URL, PORT} = require('./config');
-const {SpentMin} = require('./models')
+const {SpentMin, PlannedMin} = require('./models')
 const faker = require('faker')
 mongoose.promise = global.promise;
 app.use(express.static('public'));
 
+
+
+// Public files
+
 app.get('/', function(req, res){
-	// what does __dirname actually look like? ********
-	res.sendFile(__dirname + '/public/index.html')
+res.sendFile(__dirname + '/public/index.html')
 })
 app.get('/charts', function(req, res){
 	res.sendFile(__dirname + '/public/charts.html')
 });
+
+
+// Get requests
+
 app.get('/homeRecorded', function(req, res){
 	SpentMin
-	.find()
-	.exec()
+  .find()
+  .exec()
 	.then(function(items){
-		// returning empty array
-		res.json(items.map(function(item){item.apiRepr()}))
+	 res.json(items)
 			})
-
 	.catch(function(err) {
       console.error(err);
       res.status(500).json({error: 'something went terribly wrong'});
     });
-
 })
+
+app.get('/homePlanned', function(req, res){
+  PlannedMin
+  .find()
+  .exec()
+  .then(function(items){
+   res.json(items)
+      })
+  .catch(function(err) {
+      console.error(err);
+      res.status(500).json({error: 'something went terribly wrong'});
+    });
+})
+
+// Post Requests
+
+app.post('/homeRecorded', function(req, res){
+ const requiredItems = ["name", "cost", "productive", "category"]
+ for(i=0;i<requiredItems.length;i++){
+  const field = requiredItems[i]
+
+  // TypeError: Cannot use 'in' operator to search for 'name' in undefined
+
+  if (!(field in req.body)){
+    const message = `Missing \`${field}\` in request body`
+      console.error(message);
+      return res.status(400).send(message);
+  }
+}
+
+  SpentMin
+  .create({
+    name: req.body.name,
+    cost: req.body.cost,
+    productive: req.body.productive,
+    category: req.body.productive
+  })
+  .then(function(spentMinPost){
+    res.status(201).json(spentMinPost)
+  }) 
+  .catch(function(err){
+        console.error(err);
+        res.status(500).json({error: 'Something went wrong'});
+    });
+ })
+
+
+
+app.post('/homePlanned', function(){
+ const requiredItems = ["name", "cost", "productive", "category"]
+ for(i=0;i<requiredItems.length;i++){
+  const field = requiredItems[i];
+  if (!(field in req.body)){
+    const message = `Missing \`${field}\` in request body`
+      console.error(message);
+      return res.status(400).send(message);
+  }
+}
+
+  PlannedMin
+  .create({
+    name: req.body.name,
+    cost: req.body.cost,
+    productive: req.body.productive,
+    category: req.body.productive
+  })
+  .then(function(plannedMinPost){
+    res.status(201).json(plannedMinPost)
+  }) 
+  .catch(function(err){
+        console.error(err);
+        res.status(500).json({error: 'Something went wrong'});
+    });
+ })
+
+
+// Put Requests
+
+app.put('/homeRecorded/:id', function(req, res){
+  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    res.status(400).json({
+      error: 'Request path id and request body id values must match'
+    });
+  }
+
+
+  const updated = {};
+  const updateableFields = ["name", "cost", "productive", "category"];
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+
+  SpentMin
+    .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
+    .exec()
+    .then(function(updatedPost){
+      res.status(201).json(updatedPost.apiRepr())
+    .catch(function(err){ 
+      res.status(500).json({message: 'Something went wrong'})
+});
+  })
+  })
+
+app.put('/homePlanned/:id', function(req, res){
+  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    res.status(400).json({
+      error: 'Request path id and request body id values must match'
+    });
+  }
+
+
+  const updated = {};
+  const updateableFields = ["name", "cost", "productive", "category"];
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+
+  PlannedMin
+    .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
+    .exec()
+    .then(function(updatedPost){
+      res.status(201).json(updatedPost.apiRepr())
+    .catch(function(err){ 
+      res.status(500).json({message: 'Something went wrong'})
+});
+  })
+  })
+
+// Delete requests
+
+  app.delete('homeRecorded/:id', (req, res) => {
+  SpentMin
+    .findByIdAndRemove(req.params.id)
+    .exec()
+    .then(() => {
+      console.log(`Deleted blog post with id \`${req.params.ID}\``);
+      res.status(204).end();
+    });
+});
+
+   app.delete('homePlanned/:id', (req, res) => {
+  PlannedMin
+    .findByIdAndRemove(req.params.id)
+    .exec()
+    .then(() => {
+      console.log(`Deleted blog post with id \`${req.params.ID}\``);
+      res.status(204).end();
+    });
+});
+
+
 
 let server;
 // connects mongoose and starts server
@@ -45,7 +204,6 @@ function runServer(databaseUrl=DATABASE_URL, port=PORT) {
         resolve();
       })
       // node method that binds event handlers to events by their string name ('error'), identical jquery method.
-      // why does the mongoose.connect function use a different way of handling errors by using an if statement? ********
       .on('error', err => {
         mongoose.disconnect();
         reject(err);
@@ -53,9 +211,6 @@ function runServer(databaseUrl=DATABASE_URL, port=PORT) {
     });
   });
 }
-
-// I dont fully understand why promises need to be used in the close and run server functions. 
-// Why couldn't I just do the same code without the promise? ********
 
 function closeServer() {
   return mongoose.disconnect().then(() => {
@@ -70,8 +225,7 @@ function closeServer() {
      });
   });
 }
-// I'm also really struggling to understand the block below. ********
 if (require.main === module) {
   runServer().catch(err => console.error(err));
-};
-module.exports = {app, runServer, closeServer}
+}
+module.exports = {app, runServer, closeServer};

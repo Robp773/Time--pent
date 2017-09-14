@@ -21,7 +21,7 @@ h4{
 .topNavRow{
   font-size: 0;
 }
-header, #topNavButtons, #topNavDateTime{
+header, .topNavButtons, .topNavDateTime{
   text-align: center;
   width: 33%;
   display: inline-block;

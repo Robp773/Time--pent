@@ -1,9 +1,13 @@
 const mockHomeData = {
+
+// These will actually be client side global variables 
   
-  currentBudget: null,
+  currentBudget: null,  
   totalExpenses: 0,
   totalExpectedExpenses: null,
   
+
+  // seperate collection
     ExpenseRecord: [{
             name: 'Sleep',
             cost: 100,
@@ -53,6 +57,8 @@ const mockHomeData = {
             category: 'Zoning Out'
         }
     ],
+
+    // seperate collection
     PlannedExpenses: [{
             name: 'Sleep',
             cost: 100,
@@ -83,7 +89,7 @@ const mockHomeData = {
   
   function populateRecorded(){
     mockHomeData.ExpenseRecord.forEach(function(item){
-        $('#recordedList').append(
+        $('.recordedList').append(
         `<div class="results">
         <div class="recordedName">${item.name}</div>
         <div class="recordedCost">${item.cost}</div>
@@ -96,7 +102,7 @@ const mockHomeData = {
   
   function populatePlanned(){
     mockHomeData.PlannedExpenses.forEach(function(item){
-      $('#plannedList').append(
+      $('.plannedList').append(
        `<div class="results">
         <div class="plannedName">${item.name}</div>
         <div class="plannedCost">${item.cost}</div>
@@ -117,10 +123,10 @@ const mockHomeData = {
     })
     
     let totalSpent = mockHomeData.totalExpenses + mockHomeData.totalExpectedExpenses
-    let totalFreeTime = 1440 - totalSpent
-    let hoursFree = Math.floor(totalFreeTime/60)
-    let divFreeTime = totalFreeTime/60
-    let minutesFree = Math.floor(divFreeTime % 1 * 60)
+    // let totalFreeTime = 1440 - totalSpent
+    // let hoursFree = Math.floor(totalFreeTime/60)
+    // let divFreeTime = totalFreeTime/60
+    // let minutesFree = Math.floor(divFreeTime % 1 * 60)
     
 
     let date = new Date();
@@ -134,7 +140,7 @@ const mockHomeData = {
     }
     let futureFreeTime = 1440 - totalMinsPassed - mockHomeData.totalExpectedExpenses
     // console.log(totalMinsPassed)
-   $('#totalList').append(`
+   $('.totalList').append(`
     <h4>Daily Budget: 1440</h4>
     <h4>Recorded Expenses: ${mockHomeData.totalExpenses}</h4>
     <h4>Planned Expenses: ${mockHomeData.totalExpectedExpenses}</h4>
@@ -161,7 +167,7 @@ const mockHomeData = {
 	}
  let finalTime = `${hours}:${minutes} ${suffix}`
  
- $('#topNavTime').html(finalTime)
+ $('.topNavTime').html(finalTime)
  
  let dayArray = ['Sunday', 'Monday','Tuesday','Wednesday','Thursday', 'Friday', 'Saturday']
      
@@ -188,7 +194,7 @@ const mockHomeData = {
  let year = currentTime.getFullYear()
 
  
- $('#topNavDate').html(`${dayName} ${monthName} ${numberDay}, ${year}`)
+ $('.topNavDate').html(`${dayName} ${monthName} ${numberDay}, ${year}`)
   }
   
   populateRecorded()

@@ -1,19 +1,21 @@
 const mongoose =  require('mongoose');
 
-const timeSpentSchema =  mongoose.Schema({
-	    expenseRecord:{
+const timeSpentSchema =  mongoose.Schema(
+        {
+	   
             name: String,
             cost: Number,
             productive: Boolean,
             category: String
-        },
-        plannedExpenses:{
+        })
+
+const plannedSpentSchema =  mongoose.Schema(
+          {
             name: String,
             cost: Number,
             productive: Boolean,
             category: String
-        }
-})
+        })
 
 timeSpentSchema.methods.apiRepr =  function(){
 	return {
@@ -25,4 +27,5 @@ timeSpentSchema.methods.apiRepr =  function(){
 }
 
 const SpentMin = mongoose.model('SpentMin', timeSpentSchema)
-module.exports = {SpentMin};
+const PlannedMin =  mongoose.model('PlannedMin', plannedSpentSchema)
+module.exports = {SpentMin, PlannedMin};
