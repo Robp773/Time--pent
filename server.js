@@ -4,11 +4,12 @@ const mongoose = require('mongoose');
 const {DATABASE_URL, PORT} = require('./config');
 const {SpentMin, PlannedMin} = require('./models')
 const faker = require('faker')
+const bodyParser = require('body-parser')
+const cors =  require('cors');
 mongoose.promise = global.promise;
 app.use(express.static('public'));
-
-
-
+app.use(bodyParser.json());
+app.use(cors())
 // Public files
 
 app.get('/', function(req, res){
@@ -81,7 +82,7 @@ app.post('/homeRecorded', function(req, res){
 
 
 
-app.post('/homePlanned', function(){
+app.post('/homePlanned', function(req, res){
  const requiredItems = ["name", "cost", "productive", "category"]
  for(i=0;i<requiredItems.length;i++){
   const field = requiredItems[i];
@@ -167,21 +168,21 @@ app.put('/homePlanned/:id', function(req, res){
 
 // Delete requests
 
-  app.delete('homeRecorded/:id', (req, res) => {
+  app.delete('/homeRecorded/:id', function(req, res){
   SpentMin
     .findByIdAndRemove(req.params.id)
     .exec()
-    .then(() => {
+    .then(function(){
       console.log(`Deleted blog post with id \`${req.params.ID}\``);
       res.status(204).end();
     });
 });
 
-   app.delete('homePlanned/:id', (req, res) => {
+   app.delete('/homePlanned/:id', function(req, res){
   PlannedMin
     .findByIdAndRemove(req.params.id)
     .exec()
-    .then(() => {
+    .then(function() {
       console.log(`Deleted blog post with id \`${req.params.ID}\``);
       res.status(204).end();
     });

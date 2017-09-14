@@ -87,7 +87,8 @@ const mockHomeData = {
     ]
 }
   
-  function populateRecorded(){
+  function populateRecorded(data){
+    console.log(data)
     mockHomeData.ExpenseRecord.forEach(function(item){
         $('.recordedList').append(
         `<div class="results">
@@ -196,8 +197,40 @@ const mockHomeData = {
  
  $('.topNavDate').html(`${dayName} ${monthName} ${numberDay}, ${year}`)
   }
+
+  function apiTest(){
+  $.ajax(
+  {
+    url: "/homeRecorded",
+    contentType: 'application/json',
+    type: 'POST',
+    dataType: 'json',
+    crossDomain: true,
+    data: JSON.stringify(
+      {
+      name: 'Test Name',
+      cost: 43,
+      productive: true,
+      category: 'Testing'
+      }
+      ),
+    success: function(data){
+        populateRecorded(data)
+        console.log(data)
+
+      },
+      error: function(error){
+        console.log(error)
+      }
+
+
+
+  })
+
+  }
   
   populateRecorded()
   populatePlanned()
   calculateTotals()
   calcTimeDate()
+  apiTest()
