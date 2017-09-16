@@ -28,23 +28,42 @@
     <div class="row">
       <div class="col-4 display recorded">
         <h3>Recorded Expenses</h3>
-        <div class="recordedList">
-          
-        </div>
-        <button>Add</button>
-        <button>Remove</button>
+        <div class="unRecordedMins"></div>
+        <table class="recordedList">
+            <tr>
+                <th>Name</th> 
+                <th>Category</th> 
+                <th>Type</th> 
+                <th>Cost</th> 
+          </tr>
+        </table>
+        <button>+</button>
+        <button>-</button>
       </div>
       
       <div class="col-4 display planned">
         <h3>Planned Expenses</h3>
-        <div class="plannedList"></div>
-        <button>Add</button>
-        <button>Remove</button>
+        <table class="plannedList">
+            <tr>
+                <th>Name</th> 
+                <th>Category</th> 
+                <th>Type</th> 
+                <th>Est. Cost</th> 
+          </tr>
+        </table>
+        <button>+</button>
+        <button>-</button>
       </div>
       
       <div class="col-4 display totals">
         <h3>Budget Summary</h3>
-        <div class="totalList"></div>
+        <table class="totalList">
+        <tr>
+          <th>Sub Totals</th>
+          <th>Cost</th>
+        </tr>
+        
+      </table>
         <button>Visual Summary</button>
         </div>
       </div>
