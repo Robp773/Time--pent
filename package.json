@@ -9,6 +9,8 @@
     "cors": "^2.8.4",
     "express": "^4.15.4",
     "faker": "^4.1.0",
+    "izimodal": "^1.5.0",
+    "jquery-confirm": "^3.3.2",
     "mongoose": "^4.11.11",
     "nodemon": "^1.12.0",
     "normalize.css": "^7.0.0"

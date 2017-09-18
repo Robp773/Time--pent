@@ -5,11 +5,29 @@
     <meta name="viewport" content="width=device-width">
     <title>Time $pent</title>
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" />
+    <!-- <link>https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js -->
     <link href="index.css" rel="stylesheet" type="text/css"/>
     <link href="grid.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
-    
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content"> 
+    <form class="recordForm">
+      <input class="name" type="text" placeholder="Name">
+      <input class="cost" type="text" placeholder="Cost">
+      <input class="productive" type="text" placeholder="Productive or Unproductive?">
+      <input class="category" type="text" placeholder="Category">
+      <button class="submitRecorded" type="submit">Submit</button>
+      <button class="resetRecorded" type="reset">Reset</button>
+      <span class="close">&times;</span>
+    </form> 
+  </div>  
+</div>
+
     <div class"row topNavRow">
       <header>Time $pent</header>
       
@@ -37,7 +55,7 @@
                 <th>Cost</th> 
           </tr>
         </table>
-        <button>+</button>
+        <button id="addRecorded">+</button>    
         <button>-</button>
       </div>
       
@@ -51,7 +69,7 @@
                 <th>Est. Cost</th> 
           </tr>
         </table>
-        <button>+</button>
+        <button class="addRecord">+</button>
         <button>-</button>
       </div>
       

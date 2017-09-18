@@ -1,6 +1,5 @@
 'use strict';
-// const startingState
-// caps
+
 let globalVars = {
   dailyBudget: 1440,
   recordedData: null,
@@ -18,7 +17,7 @@ function calculateTotals (){
     globalVars.plannedCost = globalVars.plannedCost + item.cost;
   });
   // recorded + planned 
-  let totalSpent = globalVars.recordedCost + globalVars.plannedCost;
+  
   let date = new Date();
   // amount of hours passed up until now
   let passedHours = date.getHours();
@@ -27,55 +26,52 @@ function calculateTotals (){
   // hours and mins added together for total mins
   let totalMinsPassed = (passedHours * 60) + passedMinsThisHour;
   // time that was not recorded or planned for up until now
-  let pastFreeTime = totalMinsPassed - totalSpent;
-  if(pastFreeTime < 0){
-    pastFreeTime = 0;
-  }
+  let pastFreeTime = totalMinsPassed - globalVars.recordedCost;
+  // if(pastFreeTime < 0){
+  //   pastFreeTime = 0;
+  // }
   // Mins that are being planned for or recorded but are not available at this point in the day. 
   let debt;
   // Unspent time in the future based on how much time is left in the day and planned and recorded expenses
-  let futureFreeTime = 1440 - totalMinsPassed - totalSpent;
-  if(futureFreeTime < 0){
-    // gets rid of - sign
-    debt = futureFreeTime * -1;
-    futureFreeTime = 0;
-    $('#negativeNum').addClass('red');
-  }
-  else if (futureFreeTime > 0){
-    debt = 0;
-  }
-  $('.unRecordedMins').append(`<div>${futureFreeTime} Unrecorded Minutes</div>`);
-
+  let futureFreeTime = 1440 - pastFreeTime - globalVars.recordedCost;
+  console.log(`future free time ${futureFreeTime}`);
+  console.log(`${globalVars.recordedCost}`);
+  let todaysUnusedMins  =  futureFreeTime - globalVars.plannedCost;
+  
+  console.log(todaysUnusedMins);
+ 
+  $('.unRecordedMins').append(`<div>${pastFreeTime} Unrecorded Minutes</div>`);
 
   $('.totalList').append(`
-   <tr>
+   <tr class="total">
    <td>Daily Budget</td>
    <td>1440 mins</td>
    </tr>
-   <tr>
+   <tr class="subtract">
    <td>Recorded Expenses</td>
    <td>-${globalVars.recordedCost} mins</td>
    </tr>
-   <tr>
+   <tr class="subtract">
+   <td>Unspent Passed Time</td>
+   <td>-${pastFreeTime} mins</td>
+   </tr>
+   <tr class="total">
+   <td><b>Current Budget</b></td>
+   <td>${futureFreeTime} mins</td>
+   </tr>
+   <tr class="subtract plannedExp">
    <td>Planned Expenses</td>
    <td>-${globalVars.plannedCost} mins</td>
    </tr>
-   <tr>
-   <td>Passed Time</td>
-   <td>-${totalMinsPassed} mins</td>
+   <tr class="total projected">
+    <td>Projected Budget</td>
+    <td>${todaysUnusedMins} mins</td>
    </tr>
-   <tr class="totalRow">
-   <td><b>Total Unspent Mins</b></td>
-   <td id="negativeNum">${futureFreeTime} mins</td>
-   </tr>
-    
-    
-    // <h4>Unrecorded: ${pastFreeTime} mins</h4>
-    // <h4>Debt: ${debt} mins</h4>
   `); 
-  if(futureFreeTime < 0){
-    $('#negativeNum').addClass('red');
+  if(todaysUnusedMins < 0){ 
+    $('.projected').addClass('red');
   }
+
 }
   
 function calcTimeDate(){
@@ -136,12 +132,12 @@ function loadRecorded(){
         // because calculate totals is also called by loadPlanned()
         globalVars.recordedData = data;
         populateRecorded(data);
-        calculateTotals();
+        loadPlanned();
       }
     });
 }
 
-function populateRecorded(data){
+function populateRecorded(data){  
   data.forEach(function(item){  
     let productive; 
     if(item.productive === true){
@@ -178,6 +174,7 @@ function loadPlanned(){
 }
 
 function populatePlanned(data){
+  
     
   data.forEach(function(item){  
     let productive; 
@@ -199,6 +196,42 @@ function populatePlanned(data){
     );
   });
 }
+
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById('addRecorded');
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName('close')[0];
+
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = 'block';
+};
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = 'none';
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+};
+
+function listenForPosts(){
+  $('.submitRecorded').click(function(event){
+    event.preventDefault();
+    let name = $('.name').val();
+    console.log(name);
+  });
+}
+ 
+listenForPosts();
 loadRecorded();
-loadPlanned();
+
 calcTimeDate();
