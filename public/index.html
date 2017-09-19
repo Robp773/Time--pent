@@ -10,23 +10,33 @@
     <link href="grid.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
+    
+<div class="hidden formBackground"></div>
+   <form class="hidden form">
+     
+          <button class="closer">X</button>
+          <!-- legends and submit/reset buttons change depending on which '+' button clicked -->
+          <legend class="hidden recordLegend">Add a Record</legend>
+          <legend class="hidden plannedLegend">Add Planned Expense</legend>
+            <input class="name" required type="text" placeholder="Name">
+            <input class="cost" required type="text" placeholder="Cost">
+            <input class="category" required type="text" placeholder="Category">
 
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content"> 
-    <form class="recordForm">
-      <input class="name" type="text" placeholder="Name">
-      <input class="cost" type="text" placeholder="Cost">
-      <input class="productive" type="text" placeholder="Productive or Unproductive?">
-      <input class="category" type="text" placeholder="Category">
-      <button class="submitRecorded" type="submit">Submit</button>
-      <button class="resetRecorded" type="reset">Reset</button>
-      <span class="close">&times;</span>
-    </form> 
-  </div>  
-</div>
+            <label>Productivity</label>
+            
+            <select required class="productive">
+              <option>Select</option>
+              <option>Productive</option>
+              <option>Unproductive</option>
+            </select>
+          <section>
+            <button class="hidden submitRecorded" type="submit">Submit</button>
+            <button class="hidden resetRecorded" type="reset">Reset</button>
+            <button class="hidden submitPlanned" type="submit">Submit</button>
+            <button class="hidden resetPlanned" type="reset">Reset</button>
+          </section>
+        </form>
+    
 
     <div class"row topNavRow">
       <header>Time $pent</header>
@@ -47,6 +57,7 @@
       <div class="col-4 display recorded">
         <h3>Recorded Expenses</h3>
         <div class="unRecordedMins"></div>
+
         <table class="recordedList">
             <tr>
                 <th>Name</th> 
@@ -55,8 +66,12 @@
                 <th>Cost</th> 
           </tr>
         </table>
-        <button id="addRecorded">+</button>    
+
+        <button class="addRecord">+</button>    
         <button>-</button>
+
+     
+
       </div>
       
       <div class="col-4 display planned">
@@ -69,7 +84,7 @@
                 <th>Est. Cost</th> 
           </tr>
         </table>
-        <button class="addRecord">+</button>
+        <button class="addPlanned">+</button>
         <button>-</button>
       </div>
       

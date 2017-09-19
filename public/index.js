@@ -6,9 +6,33 @@ let globalVars = {
   recordedCost: 0,
   plannedData: null,
   plannedCost: 0,
-  futureFreeTime: null
+  futureFreeTime: null,
+  totalMinsPassed: 0,
+  unusedPastTime: 0
 };
+
+
+
+$('.addPlanned').click(function(){
+  $('.form, .submitPlanned, .resetPlanned, .plannedLegend, .formBackground').removeClass('hidden'); 
+  $('.submitRecorded, .resetRecorded, .recordLegend').addClass('hidden');
+});
+
+// $('.testButton').click(function(){
+//   console.log(this.getAttribute('data-id'));
+// });
+
+$('.addRecord').click(function(){
+  $('.form, .submitRecorded, .resetRecorded, .recordLegend, .formBackground').removeClass('hidden');
+  $('.submitPlanned, .resetPlanned, .plannedLegend').addClass('hidden');
   
+});
+
+$('.closer').click(function(){
+  $(this).closest('form').addClass('hidden');
+  $('.formBackground').addClass('hidden');
+  
+});
 function calculateTotals (){
   globalVars.recordedData.forEach(function(item){
     globalVars.recordedCost = globalVars.recordedCost + item.cost;
@@ -16,7 +40,6 @@ function calculateTotals (){
   globalVars.plannedData.forEach(function(item){
     globalVars.plannedCost = globalVars.plannedCost + item.cost;
   });
-  // recorded + planned 
   
   let date = new Date();
   // amount of hours passed up until now
@@ -25,23 +48,22 @@ function calculateTotals (){
   let passedMinsThisHour = date.getMinutes();
   // hours and mins added together for total mins
   let totalMinsPassed = (passedHours * 60) + passedMinsThisHour;
+  // globalVars.totalMinsPassed + totalMinsPassed = globalVars.totalMinsPassed;
+  globalVars.totalMinsPassed = globalVars.totalMinsPassed + totalMinsPassed;
+
   // time that was not recorded or planned for up until now
   let pastFreeTime = totalMinsPassed - globalVars.recordedCost;
-  // if(pastFreeTime < 0){
-  //   pastFreeTime = 0;
-  // }
+  globalVars.unusedPastTime = pastFreeTime;
+  
   // Mins that are being planned for or recorded but are not available at this point in the day. 
   let debt;
   // Unspent time in the future based on how much time is left in the day and planned and recorded expenses
-  let futureFreeTime = 1440 - pastFreeTime - globalVars.recordedCost;
-  console.log(`future free time ${futureFreeTime}`);
-  console.log(`${globalVars.recordedCost}`);
+  let futureFreeTime = 1440 - totalMinsPassed;
+  
   let todaysUnusedMins  =  futureFreeTime - globalVars.plannedCost;
   
-  console.log(todaysUnusedMins);
- 
   $('.unRecordedMins').append(`<div>${pastFreeTime} Unrecorded Minutes</div>`);
-
+  $('.totalList').empty();
   $('.totalList').append(`
    <tr class="total">
    <td>Daily Budget</td>
@@ -71,8 +93,9 @@ function calculateTotals (){
   if(todaysUnusedMins < 0){ 
     $('.projected').addClass('red');
   }
-
 }
+
+
   
 function calcTimeDate(){
   let currentTime = new Date(),
@@ -131,13 +154,22 @@ function loadRecorded(){
         // needed for calculateTotals function, cannot pass as argument 
         // because calculate totals is also called by loadPlanned()
         globalVars.recordedData = data;
-        populateRecorded(data);
         loadPlanned();
+        populateRecorded(data);
       }
     });
 }
 
-function populateRecorded(data){  
+function populateRecorded(data){ 
+  $('.recordedList').empty();
+  $('.recordedList').append(
+    ` <tr>
+    <th>Name</th> 
+    <th>Category</th> 
+    <th>Type</th> 
+    <th>Cost</th> 
+</tr>`);
+
   data.forEach(function(item){  
     let productive; 
     if(item.productive === true){
@@ -145,17 +177,25 @@ function populateRecorded(data){
     } 
     else{
       productive = 'Unproductive';
-    }          
+    }  
+           
     $('.recordedList').append(
-      `<tr>
+      `
+      <tr data-id = ${item._id} class="listed">
       <td class="res recordedName">${item.name}</td>
       <td class="res recordedCategory">${item.category}</td>
       <td class="res recordedProductive">${productive}</td>
       <td class="res recordedCost">${item.cost} mins</td>
       </tr>`
-    );
+      
+    );      
+    
   });
 }
+$('.testButton').click(function(){
+  
+  console.log(this.getAttribute('data-id'));
+});
 
 function loadPlanned(){
   $.ajax(
@@ -173,9 +213,17 @@ function loadPlanned(){
     });
 }
 
-function populatePlanned(data){
-  
-    
+function populatePlanned(data){   
+  $('.plannedList').empty(); 
+          
+  $('.plannedList').append(`
+        <tr>
+      <th>Name</th> 
+      <th>Category</th> 
+      <th>Type</th> 
+      <th>Cost</th> 
+  </tr>`);
+
   data.forEach(function(item){  
     let productive; 
     if(item.productive === true){
@@ -183,10 +231,10 @@ function populatePlanned(data){
     } 
     else{
       productive = 'Unproductive';
-    }          
+    }  
+         
     $('.plannedList').append(`
-    
-      <tr>
+      <tr class="listItem">
             <td class="res plannedName">${item.name}</td>
             <td class="res plannedCategory">${item.category}</td>
             <td class="res plannedProductive">${productive}</td>
@@ -197,41 +245,110 @@ function populatePlanned(data){
   });
 }
 
-// Get the modal
-var modal = document.getElementById('myModal');
 
-// Get the button that opens the modal
-var btn = document.getElementById('addRecorded');
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName('close')[0];
-
-// When the user clicks on the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = 'block';
-};
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = 'none';
-};
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = 'none';
+ 
+$('.submitRecorded').click(function(event){ 
+ 
+  // if(globalVars.totalMinsPassed < globalVars.recordedCost){
+  //   alert(`You've recorded more minutes than possible for this point in the day. You've spent ${globalVars.recordedCost} minutes
+  //   but only have ${globalVars.totalMinsPassed} minutes available to record with.`);
+  // }
+  // else 
+  // if (globalVars.unusedPastTime <= 0){ 
+   
+  event.preventDefault();
+  let name =  $('.name').val();
+  let category = $('.category').val();
+  let productive = $('.productive').val();
+  let cost = $('.cost').val(); 
+    
+  if(cost > globalVars.unusedPastTime){
+    alert(`You tried to spend ${cost} minutes but only have ${globalVars.unusedPastTime} minutes to spend`);
   }
-};
+    
+  
+  $('.unRecordedMins').empty();
+  resetGlobal();
+    
+  $.ajax(
+    {
+      url: '/homeRecorded',
+      contentType: 'application/json',
+      type: 'POST',
+      dataType: 'json',
+      data: JSON.stringify(
+        {
+          name: name, 
+          cost: cost, 
+          productive: productive,
+          category: category
+        }
+      ),
+      success: function(){
+        loadRecorded();
+        // location.reload(true);
+      }
+    });
+  
+});
 
-function listenForPosts(){
-  $('.submitRecorded').click(function(event){
-    event.preventDefault();
-    let name = $('.name').val();
-    console.log(name);
-  });
+$('.submitPlanned').click(function(event){ 
+  
+  // if(globalVars.totalMinsPassed < globalVars.recordedCost){
+  //   alert(`You've recorded more minutes than possible for this point in the day. You've spent ${globalVars.recordedCost} minutes
+  //   but only have ${globalVars.totalMinsPassed} minutes available to record with.`);
+  // }
+  // else 
+  // if (globalVars.unusedPastTime <= 0){ 
+    
+  event.preventDefault();
+  let name =  $('.name').val();
+  let category = $('.category').val();
+  let productive = $('.productive').val();
+  let cost = $('.cost').val(); 
+     
+  // if(cost > globalVars.unusedPastTime){
+  //   alert(`You tried to spend ${cost} minutes but only have ${globalVars.unusedPastTime} minutes to spend`);
+  // }
+     
+   
+  $('.unRecordedMins').empty();
+  resetGlobal();
+     
+  $.ajax(
+    {
+      url: '/homePlanned',
+      contentType: 'application/json',
+      type: 'POST',
+      dataType: 'json',
+      data: JSON.stringify(
+        {
+          name: name, 
+          cost: cost, 
+          productive: productive,
+          category: category
+        }
+      ),
+      success: function(){
+        loadRecorded();
+      }
+    });
+   
+});
+
+function resetGlobal(){
+  globalVars = {
+    dailyBudget: 1440,
+    recordedData: null,
+    recordedCost: 0,
+    plannedData: null,
+    plannedCost: 0,
+    futureFreeTime: null,
+    totalMinsPassed: 0
+  };
 }
  
-listenForPosts();
-loadRecorded();
 
+loadRecorded();
 calcTimeDate();
+
