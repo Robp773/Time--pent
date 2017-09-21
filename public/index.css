@@ -1,3 +1,13 @@
+.addRecord, .addPlanned{
+
+}
+
+.listedPlanned:hover, .listedRecord:hover{
+  background: red;
+}
+.listedPlanned, .listedRecord{
+  cursor: pointer;
+}
 .selectContainer{
   margin: auto;
 }
@@ -59,13 +69,6 @@ input{
   font-size: 20px;
   margin: auto;
   display: block;
-}
-
-.submitRecorded, .resetRecorded{
-/*   
-  font-size: 20px;
-  width: 45%;
-  margin: 5px; */
 }
 
 table{

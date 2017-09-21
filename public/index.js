@@ -14,17 +14,15 @@ let globalVars = {
 
 
 $('.addPlanned').click(function(){
-  $('.form, .submitPlanned, .resetPlanned, .plannedLegend, .formBackground').removeClass('hidden'); 
-  $('.submitRecorded, .resetRecorded, .recordLegend').addClass('hidden');
+  $('.form, .submitPlanned, .formBackground').removeClass('hidden'); 
+  $('.submitRecorded').addClass('hidden');
+  $('.legend').html('Add Planned Expense ');
 });
 
-// $('.testButton').click(function(){
-//   console.log(this.getAttribute('data-id'));
-// });
-
 $('.addRecord').click(function(){
-  $('.form, .submitRecorded, .resetRecorded, .recordLegend, .formBackground').removeClass('hidden');
-  $('.submitPlanned, .resetPlanned, .plannedLegend').addClass('hidden');
+  $('.form, .submitRecorded, .formBackground').removeClass('hidden');
+  $('.submitPlanned').addClass('hidden');
+  $('.legend').html('Add a Record');
   
 });
 
@@ -168,34 +166,23 @@ function populateRecorded(data){
     <th>Category</th> 
     <th>Type</th> 
     <th>Cost</th> 
+    <button>tester</button>
 </tr>`);
 
   data.forEach(function(item){  
-    let productive; 
-    if(item.productive === true){
-      productive = 'Productive';
-    } 
-    else{
-      productive = 'Unproductive';
-    }  
-           
+  
     $('.recordedList').append(
       `
-      <tr data-id = ${item._id} class="listed">
+      <tr class="listedRecord">
       <td class="res recordedName">${item.name}</td>
       <td class="res recordedCategory">${item.category}</td>
-      <td class="res recordedProductive">${productive}</td>
+      <td class="res recordedProductive">${item.productive}</td>
       <td class="res recordedCost">${item.cost} mins</td>
-      </tr>`
-      
+      </tr>
+      `
     );      
-    
   });
 }
-$('.testButton').click(function(){
-  
-  console.log(this.getAttribute('data-id'));
-});
 
 function loadPlanned(){
   $.ajax(
@@ -225,23 +212,18 @@ function populatePlanned(data){
   </tr>`);
 
   data.forEach(function(item){  
-    let productive; 
-    if(item.productive === true){
-      productive = 'Productive';
-    } 
-    else{
-      productive = 'Unproductive';
-    }  
-         
+
     $('.plannedList').append(`
-      <tr class="listItem">
+      <tr class="listedPlanned">
             <td class="res plannedName">${item.name}</td>
             <td class="res plannedCategory">${item.category}</td>
-            <td class="res plannedProductive">${productive}</td>
+            <td class="res plannedProductive">${item.productive}</td>
             <td class="res plannedCost">${item.cost} mins</td>
       </tr>`
            
     );
+    
+ 
   });
 }
 
@@ -261,6 +243,7 @@ $('.submitRecorded').click(function(event){
   let category = $('.category').val();
   let productive = $('.productive').val();
   let cost = $('.cost').val(); 
+  console.log(`productive is ${productive}`);
     
   if(cost > globalVars.unusedPastTime){
     alert(`You tried to spend ${cost} minutes but only have ${globalVars.unusedPastTime} minutes to spend`);
@@ -336,6 +319,87 @@ $('.submitPlanned').click(function(event){
    
 });
 
+$('.recordedName').click(function(){
+  alert('it worked');
+});
+
+$('.recordedList').on('click', '.listedRecord', function() {
+  
+  $('.form, .formBackground, .deleteRecorded').removeClass('hidden'); 
+  $('.submitRecorded, .submitPlanned').addClass('hidden');
+  $('.legend').html('Edit or Delete');
+  let name = $(this).closest('tr').find('.recordedName').text();
+  let cost = $(this).closest('tr').find('.recordedCost').text();
+  let numCost = cost.match(/\d+/);
+  let actualCost = numCost[0];
+  let productive = $(this).closest('tr').find('.recordedProductive').text();
+  let category = $(this).closest('tr').find('.recordedCategory').text();
+  let message  = `${name} ${numCost} ${productive} ${category}`;
+  // console.log(typeof name);
+  console.log(numCost[0]);
+  // console.log(typeof numCost);
+  $('.form input[name=name]').val(`${name}`);
+  $('.form input[name=cost]').val(`${actualCost}`);
+  $('.form input[name=category]').val(`${category}`);
+  $('.form select[name=productive]').val(`${productive}`);
+  let data = {name: name, cost: actualCost, productive: productive, category: category};
+  // console.log(data);
+  $('.deleteRecorded').click(function(event){
+    event.preventDefault();
+    deleteRecord(data);
+
+  });
+});
+
+
+$('.plannedList').on('click', '.listedPlanned', function() {  
+  $('.form, .formBackground, .deletePlanned').removeClass('hidden'); 
+  $('.submitRecorded, .submitPlanned').addClass('hidden');
+  $('.legend').html('Edit or Delete');
+  let name = $(this).closest('tr').find('.plannedName').text();
+  let cost = $(this).closest('tr').find('.plannedCost').text();
+  let numCost = cost.match(/\d+/);
+  let actualCost = numCost[0];
+  let productive = $(this).closest('tr').find('.plannedProductive').text();
+  let category = $(this).closest('tr').find('.plannedCategory').text();
+  let message  = `${name} ${numCost} ${productive} ${category}`;
+  $('.form input[name=name]').val(`${name}`);
+  $('.form input[name=cost]').val(`${cost}`);
+  $('.form input[name=category]').val(`${category}`);
+  $('.form select[name=productive]').val(`${productive}`);
+  console.log({name: name, cost: numCost, productive: productive, category: category});
+  let data = {name: name, cost: actualCost, productive: productive, category: category};
+  $('.deletePlanned').click(function(event){
+    event.preventDefault();
+    deletePlanned(data);
+  
+  });
+});
+function deletePlanned(data){
+  $.ajax({
+    url: '/homePlanned',
+    contentType: 'application/json',  
+    type: 'DELETE',
+    dataType: 'json',
+    data: JSON.stringify(data),
+    success: function(){
+      console.log('success function ran');
+    }
+  });
+}
+
+
+
+
+
+
+// $('.plannedList').append(`
+// <tr class="listItem">
+//       <td class="res plannedName">${item.name}</td>
+//       <td class="res plannedCategory">${item.category}</td>
+//       <td class="res plannedProductive">${productive}</td>
+//       <td class="res plannedCost">${item.cost} mins</td>
+// </tr>`
 function resetGlobal(){
   globalVars = {
     dailyBudget: 1440,
@@ -348,7 +412,10 @@ function resetGlobal(){
   };
 }
  
+$( document ).ready(function() {
+  loadRecorded();
+  calcTimeDate();
+  
+});
 
-loadRecorded();
-calcTimeDate();
 

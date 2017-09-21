@@ -16,24 +16,25 @@
      
           <button class="closer">X</button>
           <!-- legends and submit/reset buttons change depending on which '+' button clicked -->
-          <legend class="hidden recordLegend">Add a Record</legend>
-          <legend class="hidden plannedLegend">Add Planned Expense</legend>
-            <input class="name" required type="text" placeholder="Name">
-            <input class="cost" required type="text" placeholder="Cost">
-            <input class="category" required type="text" placeholder="Category">
+          <legend class="legend"></legend>
+          
+            <input name="name"  class="name" required type="text" placeholder="Name">
+            <input name="cost" class="cost" required type="text" placeholder="Cost">
+            <input name="category" class="category" required type="text" placeholder="Category">
 
             <label>Productivity</label>
             
-            <select required class="productive">
+            <select name="productive" required class="productive">
               <option>Select</option>
               <option>Productive</option>
               <option>Unproductive</option>
             </select>
           <section>
             <button class="hidden submitRecorded" type="submit">Submit</button>
-            <button class="hidden resetRecorded" type="reset">Reset</button>
             <button class="hidden submitPlanned" type="submit">Submit</button>
-            <button class="hidden resetPlanned" type="reset">Reset</button>
+            <button class="hidden deleteRecorded">Delete Record</button>
+            <button class="hidden deletePlanned">Delete Planned</button>
+            <button class="reset" type="reset">Reset</button>
           </section>
         </form>
     
@@ -68,7 +69,7 @@
         </table>
 
         <button class="addRecord">+</button>    
-        <button>-</button>
+        
 
      
 
@@ -85,7 +86,7 @@
           </tr>
         </table>
         <button class="addPlanned">+</button>
-        <button>-</button>
+       
       </div>
       
       <div class="col-4 display totals">

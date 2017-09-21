@@ -1,10 +1,12 @@
+// server isn't returning an error when fields are missing on post requests. 
+
+
 'use strict';
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const {DATABASE_URL, PORT} = require('./config');
 const {SpentMin, PlannedMin} = require('./models');
-const faker = require('faker');
 const bodyParser = require('body-parser');
 const cors =  require('cors');
 mongoose.promise = global.promise;
@@ -78,10 +80,6 @@ app.post('/homeRecorded', function(req, res){
     });
 });
   
-
-
-
-
 app.post('/homePlanned', function(req, res){
   const requiredItems = ['name', 'cost', 'productive', 'category'];
   for(let i=0;i<requiredItems.length;i++){
@@ -91,6 +89,12 @@ app.post('/homePlanned', function(req, res){
       console.error(message);
       return res.status(400).send(message);
     }
+    // else if(req.body.name || req.body.category === ''){
+    //   console.log('error worked');
+    //   console.log(req.body);
+    //   console.log(req.body.name);
+    //   return res.status(400).send('error');
+    // }
   }
 
   PlannedMin
@@ -168,27 +172,24 @@ app.put('/homePlanned/:id', function(req, res){
 
 // Delete requests
 
-app.delete('/homeRecorded/:id', function(req, res){
+app.delete('/homeRecorded', function(req, res){
+  console.log(req.body);
   SpentMin
-    .findByIdAndRemove(req.params.id)
+    .findOneAndRemove(req.body)
     .exec()
     .then(function(){
-      console.log(`Deleted blog post with id \`${req.params.ID}\``);
       res.status(204).end();
-    });
+    });    
 });
 
-app.delete('/homePlanned/:id', function(req, res){
+app.delete('/homePlanned', function(req, res){
   PlannedMin
-    .findByIdAndRemove(req.params.id)
+    .findOneAndRemove(req.body)
     .exec()
     .then(function() {
-      console.log(`Deleted blog post with id \`${req.params.ID}\``);
       res.status(204).end();
     });
 });
-
-
 
 let server;
 // connects mongoose and starts server
