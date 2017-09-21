@@ -243,7 +243,6 @@ $('.submitRecorded').click(function(event){
   let category = $('.category').val();
   let productive = $('.productive').val();
   let cost = $('.cost').val(); 
-  console.log(`productive is ${productive}`);
     
   if(cost > globalVars.unusedPastTime){
     alert(`You tried to spend ${cost} minutes but only have ${globalVars.unusedPastTime} minutes to spend`);
@@ -276,24 +275,12 @@ $('.submitRecorded').click(function(event){
 });
 
 $('.submitPlanned').click(function(event){ 
-  
-  // if(globalVars.totalMinsPassed < globalVars.recordedCost){
-  //   alert(`You've recorded more minutes than possible for this point in the day. You've spent ${globalVars.recordedCost} minutes
-  //   but only have ${globalVars.totalMinsPassed} minutes available to record with.`);
-  // }
-  // else 
-  // if (globalVars.unusedPastTime <= 0){ 
     
   event.preventDefault();
   let name =  $('.name').val();
   let category = $('.category').val();
   let productive = $('.productive').val();
   let cost = $('.cost').val(); 
-     
-  // if(cost > globalVars.unusedPastTime){
-  //   alert(`You tried to spend ${cost} minutes but only have ${globalVars.unusedPastTime} minutes to spend`);
-  // }
-     
    
   $('.unRecordedMins').empty();
   resetGlobal();
@@ -325,7 +312,7 @@ $('.recordedName').click(function(){
 
 $('.recordedList').on('click', '.listedRecord', function() {
   
-  $('.form, .formBackground, .deleteRecorded').removeClass('hidden'); 
+  $('.form, .formBackground, .deleteRecorded, .updateRecorded').removeClass('hidden'); 
   $('.submitRecorded, .submitPlanned').addClass('hidden');
   $('.legend').html('Edit or Delete');
   let name = $(this).closest('tr').find('.recordedName').text();
@@ -335,19 +322,47 @@ $('.recordedList').on('click', '.listedRecord', function() {
   let productive = $(this).closest('tr').find('.recordedProductive').text();
   let category = $(this).closest('tr').find('.recordedCategory').text();
   let message  = `${name} ${numCost} ${productive} ${category}`;
-  // console.log(typeof name);
-  console.log(numCost[0]);
-  // console.log(typeof numCost);
+  
   $('.form input[name=name]').val(`${name}`);
   $('.form input[name=cost]').val(`${actualCost}`);
   $('.form input[name=category]').val(`${category}`);
   $('.form select[name=productive]').val(`${productive}`);
   let data = {name: name, cost: actualCost, productive: productive, category: category};
-  // console.log(data);
   $('.deleteRecorded').click(function(event){
     event.preventDefault();
     deleteRecord(data);
 
+  });
+
+  // update button clicked
+  $('.updateRecorded').on('click', function(event){ 
+      
+    event.preventDefault();
+      
+    let updateData = {};
+      
+    // current values of the inputs to account for changes made
+    let newName = $('.form input[name=name]').val();
+    let newCost =$('.form input[name=cost]').val().match(/\d+/)[0];
+    let newCategory = $('.form input[name=category]').val();
+    let newProductive = $('.form select[name=productive]').val();
+    let newData = {
+      name: newName, 
+      cost: newCost, 
+      productive: newProductive,
+      category: newCategory
+    };
+      
+    $.each(newData, function(item){
+      if(newData[item] !== data[item]){
+        updateData[item] = newData[item];
+      }
+    });
+          
+    let putData = {updated: updateData, old: data};
+      
+    updateRecorded(putData);
+          
   });
 });
 
@@ -365,27 +380,76 @@ function deleteRecord(data){
 }
 
 
-$('.plannedList').on('click', '.listedPlanned', function() {  
-  $('.form, .formBackground, .deletePlanned').removeClass('hidden'); 
+function updateRecorded(updateData){
+  $.ajax({
+    url: '/homeRecorded',
+    contentType: 'application/json',  
+    type: 'PUT',
+    dataType: 'json',
+    data: JSON.stringify(updateData),
+    success: function(){
+      console.log('success function ran');
+    }
+  });
+
+}
+
+
+$('.plannedList').on('click', '.listedPlanned', function() { 
+  //  opens up modal for edit and delete
+  $('.form, .formBackground, .deletePlanned,.updatePlanned').removeClass('hidden'); 
   $('.submitRecorded, .submitPlanned').addClass('hidden');
   $('.legend').html('Edit or Delete');
+  // getting the table data text values from the tr that was clicked on.
   let name = $(this).closest('tr').find('.plannedName').text();
   let cost = $(this).closest('tr').find('.plannedCost').text();
   let numCost = cost.match(/\d+/);
   let actualCost = numCost[0];
   let productive = $(this).closest('tr').find('.plannedProductive').text();
   let category = $(this).closest('tr').find('.plannedCategory').text();
-  let message  = `${name} ${numCost} ${productive} ${category}`;
+  // presetting the table data as the modal form's values
   $('.form input[name=name]').val(`${name}`);
   $('.form input[name=cost]').val(`${cost}`);
   $('.form input[name=category]').val(`${category}`);
   $('.form select[name=productive]').val(`${productive}`);
-  console.log({name: name, cost: numCost, productive: productive, category: category});
+  // data to be sent for DELETE
   let data = {name: name, cost: actualCost, productive: productive, category: category};
+
   $('.deletePlanned').click(function(event){
     event.preventDefault();
-    deletePlanned(data);
-  
+    // ajax delete
+    deletePlanned(data);    
+  });
+
+  // update button clicked
+  $('.updatePlanned').on('click', function(event){ 
+
+    event.preventDefault();
+
+    let updateData = {};
+
+    // current values of the inputs to account for changes made
+    let newName = $('.form input[name=name]').val();
+    let newCost =$('.form input[name=cost]').val().match(/\d+/)[0];
+    let newCategory = $('.form input[name=category]').val();
+    let newProductive = $('.form select[name=productive]').val();
+    let newData = {
+      name: newName, 
+      cost: newCost, 
+      productive: newProductive,
+      category: newCategory
+    };
+
+    $.each(newData, function(item){
+      if(newData[item] !== data[item]){
+        updateData[item] = newData[item];
+      }
+    });
+    
+    let putData = {updated: updateData, old: data};
+
+    updatePlanned(putData);
+    
   });
 });
 function deletePlanned(data){
@@ -401,18 +465,20 @@ function deletePlanned(data){
   });
 }
 
+function updatePlanned(updateData){
+  $.ajax({
+    url: '/homePlanned',
+    contentType: 'application/json',  
+    type: 'PUT',
+    dataType: 'json',
+    data: JSON.stringify(updateData),
+    success: function(){
+      console.log('success function ran');
+    }
+  });
 
+}
 
-
-
-
-// $('.plannedList').append(`
-// <tr class="listItem">
-//       <td class="res plannedName">${item.name}</td>
-//       <td class="res plannedCategory">${item.category}</td>
-//       <td class="res plannedProductive">${productive}</td>
-//       <td class="res plannedCost">${item.cost} mins</td>
-// </tr>`
 function resetGlobal(){
   globalVars = {
     dailyBudget: 1440,
@@ -425,10 +491,9 @@ function resetGlobal(){
   };
 }
  
-$( document ).ready(function() {
+$(document).ready(function() {
   loadRecorded();
   calcTimeDate();
-  
 });
 
 

@@ -1,7 +1,7 @@
-.addRecord, .addPlanned{
-
+.btn{
+  display: block;
+  margin: auto;
 }
-
 .listedPlanned:hover, .listedRecord:hover{
   background: red;
 }
@@ -40,14 +40,18 @@ legend{
   font-weight: bold;
   }
   form{
+    padding: 10px;
     z-index: 1;
     text-align: center;
-    height: 25%;
-    width: 25%;
+    height: max-content;
+    width: 35%;
     margin: auto;
     position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
-    background:red;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: red;
   }
 .hidden{
   display: none;

@@ -116,54 +116,26 @@ app.post('/homePlanned', function(req, res){
 
 // Put Requests
 
-app.put('/homeRecorded/:id', function(req, res){
-  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-    res.status(400).json({
-      error: 'Request path id and request body id values must match'
-    });
-  }
-
-
-  const updated = {};
-  const updateableFields = ['name', 'cost', 'productive', 'category'];
-  updateableFields.forEach(field => {
-    if (field in req.body) {
-      updated[field] = req.body[field];
-    }
-  });
+app.put('/homeRecorded', function(req, res){
 
   SpentMin
-    .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
+    .findOneAndUpdate(req.body.old, {$set: req.body.updated}, {new: true})
     .exec()
-    .then(function(updatedPost){
-      res.status(201).json(updatedPost.apiRepr())
+    .then(function(updatedItem){
+      res.status(201).json(updatedItem)
         .catch(function(err){ 
           res.status(500).json({message: 'Something went wrong'});
         });
     });
 });
 
-app.put('/homePlanned/:id', function(req, res){
-  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-    res.status(400).json({
-      error: 'Request path id and request body id values must match'
-    });
-  }
-
-
-  const updated = {};
-  const updateableFields = ['name', 'cost', 'productive', 'category'];
-  updateableFields.forEach(field => {
-    if (field in req.body) {
-      updated[field] = req.body[field];
-    }
-  });
+app.put('/homePlanned', function(req, res){
 
   PlannedMin
-    .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
+    .findOneAndUpdate(req.body.old, {$set: req.body.updated}, {new: true})
     .exec()
-    .then(function(updatedPost){
-      res.status(201).json(updatedPost.apiRepr())
+    .then(function(updatedItem){
+      res.status(201).json(updatedItem)
         .catch(function(err){ 
           res.status(500).json({message: 'Something went wrong'});
         });
