@@ -351,6 +351,19 @@ $('.recordedList').on('click', '.listedRecord', function() {
   });
 });
 
+function deleteRecord(data){
+  $.ajax({
+    url: '/homeRecorded',
+    contentType: 'application/json',  
+    type: 'DELETE',
+    dataType: 'json',
+    data: JSON.stringify(data),
+    success: function(){
+      console.log('success function ran');
+    }
+  });
+}
+
 
 $('.plannedList').on('click', '.listedPlanned', function() {  
   $('.form, .formBackground, .deletePlanned').removeClass('hidden'); 
