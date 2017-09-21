@@ -3,18 +3,24 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Time $pent</title>
+    <title>Time Spent</title>
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" />
-    <!-- <link>https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js -->
+    <script src="https://use.fontawesome.com/8f440fa89f.js"></script>
     <link href="index.css" rel="stylesheet" type="text/css"/>
     <link href="grid.css" rel="stylesheet" type="text/css"/>
+    <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+    
+    <script src="js/clock-1.1.0.min.js"></script>
+    
   </head>
   <body>
     
 <div class="hidden formBackground"></div>
    <form class="hidden form">
      
-          <button class="closer">X</button>
+          <button class="closer">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
           <!-- legends and submit/reset buttons change depending on which '+' button clicked -->
           <legend class="legend"></legend>
           
@@ -32,25 +38,39 @@
           <section>
             <button class="hidden btn submitRecorded" type="submit">Submit</button>
             <button class="hidden btn submitPlanned" type="submit">Submit</button>
-            <button class="hidden btn deleteRecorded">Delete Record</button>
-            <button class="hidden btn deletePlanned">Delete Planned</button>
-            <button class="hidden btn updateRecorded">Update Record</button>
-            <button class="hidden btn updatePlanned">Update Planned</button>
-            <button class="reset" type="reset">Reset</button>
+            <button class="hidden btn deleteRecorded">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+               </button>
+            <button class="hidden btn deletePlanned">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+            <button class="hidden btn updateRecorded">
+              <i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button class="hidden btn updatePlanned">
+              <i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button class="reset" type="reset">
+              <i class="fa fa-refresh" aria-hidden="true">
+                </i></button>
           </section>
         </form>
     
 
     <div class"row topNavRow">
-      <header>Time $pent</header>
+      <header>Time <i class="fa fa-usd" aria-hidden="true"></i>pent</header>
       
       <div class="topNavButtons">
-        <button>Login</button>
-        <button>Help</button>
-        <button>Sign Up</button>
+        <button>
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+        </button>
+        <button>
+          <i class="fa fa-question-circle" aria-hidden="true"></i>
+        </button>
+        <button>
+          <i class="fa fa-user-plus" aria-hidden="true"></i>
+        </button>
       </div>
       
-      <div class="topNavDateTime">  
+      <div class="topNavDateTime">
         <div class="topNavTime">time</div>
         <div class="topNavDate">date</div>
       </div>
@@ -62,6 +82,7 @@
         <div class="unRecordedMins"></div>
 
         <table class="recordedList">
+            
             <tr>
                 <th>Name</th> 
                 <th>Category</th> 
@@ -70,7 +91,9 @@
           </tr>
         </table>
 
-        <button class="addRecord">+</button>    
+        <button class="addRecord">
+        <i class="fa fa-plus-square" aria-hidden="true">
+          </i></button>    
         
 
      
@@ -87,7 +110,9 @@
                 <th>Est. Cost</th> 
           </tr>
         </table>
-        <button class="addPlanned">+</button>
+        <button class="addPlanned">
+          <i class="fa fa-plus-square" aria-hidden="true"></i>
+        </button>
        
       </div>
       
@@ -100,7 +125,9 @@
         </tr>
         
       </table>
-        <button>Visual Summary</button>
+        <button>
+          <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button>
         </div>
       </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

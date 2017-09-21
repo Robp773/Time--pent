@@ -13,6 +13,7 @@ let globalVars = {
 
 
 
+
 $('.addPlanned').click(function(){
   $('.form, .submitPlanned, .formBackground').removeClass('hidden'); 
   $('.submitRecorded').addClass('hidden');
@@ -166,7 +167,6 @@ function populateRecorded(data){
     <th>Category</th> 
     <th>Type</th> 
     <th>Cost</th> 
-    <button>tester</button>
 </tr>`);
 
   data.forEach(function(item){  
@@ -231,12 +231,7 @@ function populatePlanned(data){
  
 $('.submitRecorded').click(function(event){ 
  
-  // if(globalVars.totalMinsPassed < globalVars.recordedCost){
-  //   alert(`You've recorded more minutes than possible for this point in the day. You've spent ${globalVars.recordedCost} minutes
-  //   but only have ${globalVars.totalMinsPassed} minutes available to record with.`);
-  // }
-  // else 
-  // if (globalVars.unusedPastTime <= 0){ 
+
    
   event.preventDefault();
   let name =  $('.name').val();
@@ -244,34 +239,34 @@ $('.submitRecorded').click(function(event){
   let productive = $('.productive').val();
   let cost = $('.cost').val(); 
     
-  if(cost > globalVars.unusedPastTime){
-    alert(`You tried to spend ${cost} minutes but only have ${globalVars.unusedPastTime} minutes to spend`);
+  if(!(cost > globalVars.unusedPastTime)){
+    $('.unRecordedMins').empty();
+    resetGlobal();
+    
+    $.ajax(
+      {
+        url: '/homeRecorded',
+        contentType: 'application/json',
+        type: 'POST',
+        dataType: 'json',
+        data: JSON.stringify(
+          {
+            name: name, 
+            cost: cost, 
+            productive: productive,
+            category: category
+          }
+        ),
+        success: function(){
+          loadRecorded();
+        // location.reload(true);
+        }
+      });
   }
     
-  
-  $('.unRecordedMins').empty();
-  resetGlobal();
-    
-  $.ajax(
-    {
-      url: '/homeRecorded',
-      contentType: 'application/json',
-      type: 'POST',
-      dataType: 'json',
-      data: JSON.stringify(
-        {
-          name: name, 
-          cost: cost, 
-          productive: productive,
-          category: category
-        }
-      ),
-      success: function(){
-        loadRecorded();
-        // location.reload(true);
-      }
-    });
-  
+  else{
+    alert(`You tried to spend ${cost} minutes but only have ${globalVars.unusedPastTime} minutes to spend`);
+  } 
 });
 
 $('.submitPlanned').click(function(event){ 

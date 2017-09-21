@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 
 function seedData(){
   let dataArray = [];
-  for(i=0; i<10; i++){
+  for(let i=0; i<10; i++){
     dataArray.push(generateData());
   }
   return SpentMin.insertMany(dataArray) && PlannedMin.insertMany(dataArray);
@@ -173,22 +173,22 @@ describe('all API endpoints', function(){
 
     //     })
     //  })
-//   });
+    //   });
 
-  describe('delete endpoints', function(){
-    it('should successfully delete items on requests to homeRecorded/:id', function(){
-      let deleteId;
-      return SpentMin
-        .findOne()
-        .then(function(res){
-          deleteId =  res.id;
-        });
-      return chai.request(app)
-        .delete(`homeRecorded/${deleteId}`)
-        .then(function(res){
-          res.should.have.status(204);
-        });
+    describe('delete endpoints', function(){
+      it('should successfully delete items on requests to homeRecorded', function(){
+        let deleteBody;
+        SpentMin
+          .findOne()
+          .then(function(res){
+            deleteBody =  res.body;
+          });
+        SpentMin
+          .findOneAndRemove(deleteBody)
+          .then(function(res){
+            console.log(test);
+          });
+      });
+
     });
-
-  });
-});
+  });});

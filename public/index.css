@@ -1,6 +1,6 @@
 .btn{
-  display: block;
-  margin: auto;
+
+ 
 }
 .listedPlanned:hover, .listedRecord:hover{
   background: red;
