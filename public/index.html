@@ -6,22 +6,21 @@
     <title>Time Spent</title>
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" />
     <script src="https://use.fontawesome.com/8f440fa89f.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js"></script>
     <link href="index.css" rel="stylesheet" type="text/css"/>
     <link href="grid.css" rel="stylesheet" type="text/css"/>
     <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
-    
-    <script src="js/clock-1.1.0.min.js"></script>
-    
   </head>
   <body>
     
+   
 <div class="hidden formBackground"></div>
    <form class="hidden form">
      
           <button class="closer">
             <i class="fa fa-times" aria-hidden="true"></i>
           </button>
-          <!-- legends and submit/reset buttons change depending on which '+' button clicked -->
+          
           <legend class="legend"></legend>
           
             <input name="name"  class="name" required type="text" placeholder="Name">
@@ -48,9 +47,7 @@
               <i class="fa fa-pencil" aria-hidden="true"></i></button>
             <button class="hidden btn updatePlanned">
               <i class="fa fa-pencil" aria-hidden="true"></i></button>
-            <button class="reset" type="reset">
-              <i class="fa fa-refresh" aria-hidden="true">
-                </i></button>
+            <button class="reset" type="reset">Reset</button>
           </section>
         </form>
     
@@ -91,7 +88,7 @@
           </tr>
         </table>
 
-        <button class="addRecord">
+        <button class=" add addRecord">
         <i class="fa fa-plus-square" aria-hidden="true">
           </i></button>    
         
@@ -110,7 +107,7 @@
                 <th>Est. Cost</th> 
           </tr>
         </table>
-        <button class="addPlanned">
+        <button class="add addPlanned">
           <i class="fa fa-plus-square" aria-hidden="true"></i>
         </button>
        
@@ -125,11 +122,11 @@
         </tr>
         
       </table>
-        <button>
-          <i class="fa fa-line-chart" aria-hidden="true"></i>
-        </button>
+     
         </div>
       </div>
+    
+      <canvas id="myChart" width="250" height="100"></canvas>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="index.js"></script>
     

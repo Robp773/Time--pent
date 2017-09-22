@@ -13,7 +13,6 @@ let globalVars = {
 
 
 
-
 $('.addPlanned').click(function(){
   $('.form, .submitPlanned, .formBackground').removeClass('hidden'); 
   $('.submitRecorded').addClass('hidden');
@@ -39,6 +38,8 @@ function calculateTotals (){
   globalVars.plannedData.forEach(function(item){
     globalVars.plannedCost = globalVars.plannedCost + item.cost;
   });
+
+  
   
   let date = new Date();
   // amount of hours passed up until now
@@ -53,7 +54,7 @@ function calculateTotals (){
   // time that was not recorded or planned for up until now
   let pastFreeTime = totalMinsPassed - globalVars.recordedCost;
   globalVars.unusedPastTime = pastFreeTime;
-  
+  buildChart(pastFreeTime);
   // Mins that are being planned for or recorded but are not available at this point in the day. 
   let debt;
   // Unspent time in the future based on how much time is left in the day and planned and recorded expenses
@@ -225,6 +226,52 @@ function populatePlanned(data){
     
  
   });
+
+  
+}
+
+function buildChart(pastFreeTime){
+
+  var ctx = $('#myChart');
+  ctx.height = 250;
+  var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Recorded', 'Planned', 'Unused'],
+      datasets: [{
+        label: 'Time Spent',
+        data: [globalVars.recordedCost, globalVars.plannedCost, pastFreeTime],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    // options: {
+    // scales: {
+    // yAxes: [{
+    // ticks: {
+    // beginAtZero:true
+    // }
+    // }]
+    // }
+    // }
+  });
+   
+
 }
 
 
@@ -485,10 +532,14 @@ function resetGlobal(){
     totalMinsPassed: 0
   };
 }
- 
+
+
 $(document).ready(function() {
   loadRecorded();
   calcTimeDate();
+  
 });
+
+console.log(globalVars.plannedCost);
 
 

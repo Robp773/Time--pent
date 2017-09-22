@@ -1,9 +1,21 @@
-.btn{
 
- 
+#myChart{
+height: 500px;
 }
-.listedPlanned:hover, .listedRecord:hover{
-  background: red;
+
+.totalList{
+  margin-bottom: 10px;
+}
+.add{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.listedPlanned:hover{
+  background: #44B3C2;
+}
+
+.listedRecord:hover{
+  background: #E45641;
 }
 .listedPlanned, .listedRecord{
   cursor: pointer;
@@ -51,7 +63,7 @@ legend{
     left: 0;
     bottom: 0;
     right: 0;
-    background: red;
+background: #7B8D8E
   }
 .hidden{
   display: none;
@@ -124,11 +136,11 @@ header, .topNavButtons, .topNavDateTime{
   display: inline-block;
 }
 .recorded{
-  background: red;
+  background:#E45641;
 }
 .planned{
-  background: blue;
+  background: #44B3C2
 }
 .totals{
-  background: orange;
+  background: #F1A94E;
 }
