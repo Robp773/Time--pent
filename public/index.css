@@ -1,9 +1,39 @@
-.btn{
-
- 
+html, body{
+  font-family: Raleway, sans-serif;
+  background: grey;
+height: 100%;
 }
-.listedPlanned:hover, .listedRecord:hover{
+.filler{
+
+  height: 25%;
+}
+.expanderPlanned{
+
   background: red;
+  height: 100%;
+}
+
+.graph{
+  border: 1px solid black;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: darkgrey
+}
+
+.totalList{
+  margin-bottom: 10px;
+}
+.add{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.listedPlanned:hover{
+  background: #44B3C2;
+}
+
+.listedRecord:hover{
+  background: #E45641;
 }
 .listedPlanned, .listedRecord{
   cursor: pointer;
@@ -51,7 +81,7 @@ legend{
     left: 0;
     bottom: 0;
     right: 0;
-    background: red;
+background: lightgrey
   }
 .hidden{
   display: none;
@@ -62,9 +92,6 @@ legend{
   border-right: 3px solid black;
 }
 
-.totalRow{
-  background: green;
-}
 .hidden{
 visibility: hidden;
 }
@@ -76,14 +103,14 @@ input{
 }
 
 table{
-  background: lightgrey;
+  background: white;
   border: 1px solid black;
   padding: 5px;
   margin: auto;
 }
 .total{
-  border: 3px solid black;
-  background: greenyellow;
+  border: 1px solid black;
+  background-color: darkgrey;
   text-align: center;
   font-weight: bold;
   }
@@ -116,19 +143,34 @@ header, .topNavButtons, .topNavDateTime{
   text-align: center;
   width: 33%;
   display: inline-block;
-
 }
+
 .display{
+  height: 75%;
+  padding: 10px;
   text-align: center;
   border: 1px solid black;
   display: inline-block;
 }
 .recorded{
-  background: red;
+  background:#E45641;
 }
 .planned{
-  background: blue;
+  background: rgba(68, 179, 194, .89)
 }
 .totals{
-  background: orange;
+  background: rgba(255, 184, 77, .89);
 }
+  .recordedTotal{
+  background: rgba(228, 86, 65, 0.89);
+}
+.unspentTotal{
+  background: #ffb84d;
+}
+.plannedTotal{
+  background: #44B3C2}
+  .money{
+    color: #42f465;
+  }
+
+

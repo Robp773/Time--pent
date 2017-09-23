@@ -7,7 +7,8 @@ const timeSpentSchema =  mongoose.Schema(
     name: String,
     cost: Number,
     productive: String,
-    category: String
+    category: String,
+    // type: String
   });
 
 const plannedSpentSchema =  mongoose.Schema(

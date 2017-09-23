@@ -13,7 +13,6 @@ let globalVars = {
 
 
 
-
 $('.addPlanned').click(function(){
   $('.form, .submitPlanned, .formBackground').removeClass('hidden'); 
   $('.submitRecorded').addClass('hidden');
@@ -39,6 +38,8 @@ function calculateTotals (){
   globalVars.plannedData.forEach(function(item){
     globalVars.plannedCost = globalVars.plannedCost + item.cost;
   });
+
+  
   
   let date = new Date();
   // amount of hours passed up until now
@@ -59,8 +60,9 @@ function calculateTotals (){
   // Unspent time in the future based on how much time is left in the day and planned and recorded expenses
   let futureFreeTime = 1440 - totalMinsPassed;
   
-  let todaysUnusedMins  =  futureFreeTime - globalVars.plannedCost;
   
+  let todaysUnusedMins  =  futureFreeTime - globalVars.plannedCost;
+  buildChart(pastFreeTime, todaysUnusedMins);
   $('.unRecordedMins').append(`<div>${pastFreeTime} Unrecorded Minutes</div>`);
   $('.totalList').empty();
   $('.totalList').append(`
@@ -68,11 +70,11 @@ function calculateTotals (){
    <td>Daily Budget</td>
    <td>1440 mins</td>
    </tr>
-   <tr class="subtract">
+   <tr class="recordedTotal">
    <td>Recorded Expenses</td>
    <td>-${globalVars.recordedCost} mins</td>
    </tr>
-   <tr class="subtract">
+   <tr class="unspentTotal">
    <td>Unspent Passed Time</td>
    <td>-${pastFreeTime} mins</td>
    </tr>
@@ -80,7 +82,7 @@ function calculateTotals (){
    <td><b>Current Budget</b></td>
    <td>${futureFreeTime} mins</td>
    </tr>
-   <tr class="subtract plannedExp">
+   <tr class="plannedTotal">
    <td>Planned Expenses</td>
    <td>-${globalVars.plannedCost} mins</td>
    </tr>
@@ -225,13 +227,99 @@ function populatePlanned(data){
     
  
   });
+
+  
+}
+
+function buildChart(pastFreeTime, todaysUnusedMins){
+
+  const ctxTotal = $('#totalChart');
+  ctxTotal.height = 250;
+  const totalChart = new Chart(ctxTotal, {
+    type: 'pie',
+    
+    data: {
+      labels: ['Recorded', 'Planned', 'Past Unused', 'Future Unused' ],
+      datasets: [{
+        label: 'Time Spent',
+        data: [globalVars.recordedCost, globalVars.plannedCost, pastFreeTime, todaysUnusedMins],
+        backgroundColor: [
+          '#E45641',
+          '#44B3C2',
+          '#ffb84d',
+          '#42f465'
+        ],
+        borderColor: [
+          '#FFFFF',
+          '#FFFFF',
+          '#FFFFF',
+          '#FFFFF',
+          '#FFFFF',
+          
+        ],
+        borderWidth: .5
+      }]
+    },
+
+  });
+   
+  const ctxRecord = $('#recordChart');
+
+  const recordChart = new Chart(ctxRecord, {
+    type: 'doughnut',
+    
+    data: {
+      labels: ['Recorded', 'Unused'],
+      datasets: [{
+        label: 'Time Spent',
+        data: [globalVars.recordedCost, pastFreeTime],
+        backgroundColor: [
+          '#E45641',
+          '#ffb84d',
+        
+        ],
+        borderColor: [
+          '#FFFFF',
+          '#FFFFF',
+          '#FFFFF'       
+        ],
+        borderWidth: .5
+      }]
+    },
+
+  });
+   
+  const ctxPlanned = $('#plannedChart');
+  
+  const plannedChart = new Chart(ctxPlanned, {
+    type: 'doughnut',
+      
+    data: {
+      labels: ['Future Unused', 'Planned'],
+      datasets: [{
+        label: 'Time Spent',
+        data: [todaysUnusedMins, globalVars.plannedCost],
+        backgroundColor: [
+          '#42f465',
+          '#44B3C2',
+          
+        ],
+        borderColor: [
+          '#FFFFF',
+          '#FFFFF',
+
+           
+        ],
+        borderWidth: .5
+      }]
+    },
+  
+  });
 }
 
 
  
 $('.submitRecorded').click(function(event){ 
- 
-
    
   event.preventDefault();
   let name =  $('.name').val();
@@ -269,6 +357,8 @@ $('.submitRecorded').click(function(event){
   } 
 });
 
+
+
 $('.submitPlanned').click(function(event){ 
     
   event.preventDefault();
@@ -276,34 +366,51 @@ $('.submitPlanned').click(function(event){
   let category = $('.category').val();
   let productive = $('.productive').val();
   let cost = $('.cost').val(); 
-   
+  let data = {
+    name: name, 
+    cost: cost, 
+    productive: productive,
+    category: category
+  };
   $('.unRecordedMins').empty();
   resetGlobal();
-     
+  addPlanned(data);
+});
+
+function addRecorded(data){
+  $.ajax(
+    {
+      url: '/homeRecorded',
+      contentType: 'application/json',
+      type: 'POST',
+      dataType: 'json',
+      data: JSON.stringify(data),
+      success: function(){
+        loadRecorded();
+      }
+    });
+}
+
+function addPlanned(data){
   $.ajax(
     {
       url: '/homePlanned',
       contentType: 'application/json',
       type: 'POST',
       dataType: 'json',
-      data: JSON.stringify(
-        {
-          name: name, 
-          cost: cost, 
-          productive: productive,
-          category: category
-        }
-      ),
+      data: JSON.stringify(data),
       success: function(){
         loadRecorded();
       }
     });
-   
-});
+}
 
-$('.recordedName').click(function(){
-  alert('it worked');
-});
+   
+
+
+// $('.recordedName').click(function(){
+//   alert('it worked');
+// });
 
 $('.recordedList').on('click', '.listedRecord', function() {
   
@@ -392,9 +499,9 @@ function updateRecorded(updateData){
 
 $('.plannedList').on('click', '.listedPlanned', function() { 
   //  opens up modal for edit and delete
-  $('.form, .formBackground, .deletePlanned,.updatePlanned').removeClass('hidden'); 
+  $('.form, .formBackground, .deletePlanned, .updatePlanned, .addPlannedRecord').removeClass('hidden'); 
   $('.submitRecorded, .submitPlanned').addClass('hidden');
-  $('.legend').html('Edit or Delete');
+  $('.legend').html('Edit, Delete, or Add to Records');
   // getting the table data text values from the tr that was clicked on.
   let name = $(this).closest('tr').find('.plannedName').text();
   let cost = $(this).closest('tr').find('.plannedCost').text();
@@ -446,6 +553,24 @@ $('.plannedList').on('click', '.listedPlanned', function() {
     updatePlanned(putData);
     
   });
+
+  $('.addPlannedRecord').click(function(event){
+    
+    event.preventDefault();
+    let newName = $('.form input[name=name]').val();
+    let newCost =$('.form input[name=cost]').val().match(/\d+/)[0];
+    let newCategory = $('.form input[name=category]').val();
+    let newProductive = $('.form select[name=productive]').val();
+    let dataForRecord = {
+      name: newName, 
+      cost: newCost, 
+      productive: newProductive,
+      category: newCategory
+    };
+    deletePlanned(data);
+    addRecorded(dataForRecord);
+  
+  });
 });
 function deletePlanned(data){
   $.ajax({
@@ -485,10 +610,14 @@ function resetGlobal(){
     totalMinsPassed: 0
   };
 }
- 
+
+
 $(document).ready(function() {
   loadRecorded();
   calcTimeDate();
+  
 });
+
+
 
 
