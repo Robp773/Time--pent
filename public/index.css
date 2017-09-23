@@ -1,4 +1,5 @@
 html, body{
+  font-family: Raleway, sans-serif;
   background: grey;
 height: 100%;
 }
@@ -102,7 +103,7 @@ input{
 }
 
 table{
-  background: lightgrey;
+  background: white;
   border: 1px solid black;
   padding: 5px;
   margin: auto;
@@ -142,8 +143,8 @@ header, .topNavButtons, .topNavDateTime{
   text-align: center;
   width: 33%;
   display: inline-block;
-
 }
+
 .display{
   height: 75%;
   padding: 10px;
@@ -155,13 +156,13 @@ header, .topNavButtons, .topNavDateTime{
   background:#E45641;
 }
 .planned{
-  background: #44B3C2
+  background: rgba(68, 179, 194, .89)
 }
 .totals{
-  background: #ffb84d;
+  background: rgba(255, 184, 77, .89);
 }
   .recordedTotal{
-  background: #E45641;
+  background: rgba(228, 86, 65, 0.89);
 }
 .unspentTotal{
   background: #ffb84d;
@@ -171,3 +172,5 @@ header, .topNavButtons, .topNavDateTime{
   .money{
     color: #42f465;
   }
+
+
