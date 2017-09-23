@@ -47,13 +47,14 @@
               <i class="fa fa-pencil" aria-hidden="true"></i></button>
             <button class="hidden btn updatePlanned">
               <i class="fa fa-pencil" aria-hidden="true"></i></button>
+              <button class="hidden addPlannedRecord">Add to Records</button>
             <button class="reset" type="reset">Reset</button>
           </section>
         </form>
     
 
     <div class"row topNavRow">
-      <header>Time <i class="fa fa-usd" aria-hidden="true"></i>pent</header>
+      <header>Time <i class="money fa fa-usd" aria-hidden="true"></i>pent</header>
       
       <div class="topNavButtons">
         <button>
@@ -89,14 +90,26 @@
         </table>
 
         <button class=" add addRecord">
-        <i class="fa fa-plus-square" aria-hidden="true">
-          </i></button>    
-        
-
-     
-
+        <i class="fa fa-plus-square" aria-hidden="true"></i>
+      </button>    
+      <div class="row graph">
+          <canvas id="recordChart"></canvas>
+        </div>
       </div>
-      
+
+        <div class="col-4 display totals">
+        <h3>Budget Summary</h3>
+        <table class="totalList">
+        <tr>
+          <th>Sub Totals</th>
+          <th>Cost</th>
+        </tr>
+        
+      </table>
+      <div class="row graph">
+          <canvas id="totalChart"></canvas>
+        </div>
+        </div>
       <div class="col-4 display planned">
         <h3>Planned Expenses</h3>
         <table class="plannedList">
@@ -110,25 +123,26 @@
         <button class="add addPlanned">
           <i class="fa fa-plus-square" aria-hidden="true"></i>
         </button>
-       
-      </div>
-      
-      <div class="col-4 display totals">
-        <h3>Budget Summary</h3>
-        <table class="totalList">
-        <tr>
-          <th>Sub Totals</th>
-          <th>Cost</th>
-        </tr>
         
-      </table>
-     
-        </div>
+        <div class="row graph">
+            <canvas id="plannedChart"></canvas>
+          </div>
+         
       </div>
+      <!-- <div class="row filler">
+      <div class="col-4 expanderPlanned">f</div>
+      <div class="col-4 expanderPlanned">f</div>
+      <div class="col-4 expanderPlanned">f</div> -->
+    </div>
+    </div>
     
-      <canvas id="myChart" width="250" height="100"></canvas>
+       
+
+    
+     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="index.js"></script>
     
   </body>
+  
 </html>

@@ -1,6 +1,23 @@
+html, body{
+  background: grey;
+height: 100%;
+}
+.filler{
 
-#myChart{
-height: 500px;
+  height: 25%;
+}
+.expanderPlanned{
+
+  background: red;
+  height: 100%;
+}
+
+.graph{
+  border: 1px solid black;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: darkgrey
 }
 
 .totalList{
@@ -63,7 +80,7 @@ legend{
     left: 0;
     bottom: 0;
     right: 0;
-background: #7B8D8E
+background: lightgrey
   }
 .hidden{
   display: none;
@@ -74,9 +91,6 @@ background: #7B8D8E
   border-right: 3px solid black;
 }
 
-.totalRow{
-  background: green;
-}
 .hidden{
 visibility: hidden;
 }
@@ -94,8 +108,8 @@ table{
   margin: auto;
 }
 .total{
-  border: 3px solid black;
-  background: greenyellow;
+  border: 1px solid black;
+  background-color: darkgrey;
   text-align: center;
   font-weight: bold;
   }
@@ -131,6 +145,8 @@ header, .topNavButtons, .topNavDateTime{
 
 }
 .display{
+  height: 75%;
+  padding: 10px;
   text-align: center;
   border: 1px solid black;
   display: inline-block;
@@ -142,5 +158,16 @@ header, .topNavButtons, .topNavDateTime{
   background: #44B3C2
 }
 .totals{
-  background: #F1A94E;
+  background: #ffb84d;
 }
+  .recordedTotal{
+  background: #E45641;
+}
+.unspentTotal{
+  background: #ffb84d;
+}
+.plannedTotal{
+  background: #44B3C2}
+  .money{
+    color: #42f465;
+  }
