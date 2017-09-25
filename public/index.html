@@ -13,57 +13,21 @@
   <body>
     
    
-<div class="hidden formBackground"></div>
-   <form class="hidden form">
-     
-          <button class="closer">
-            <i class="fa fa-times" aria-hidden="true"></i>
-          </button>
-          
-          <legend class="legend"></legend>
-          
-            <input name="name"  class="name" required type="text" placeholder="Name">
-            <input name="cost" class="cost" required type="text" placeholder="Cost">
-            <input name="category" class="category" required type="text" placeholder="Category">
 
-            <label>Productivity</label>
-            
-            <select name="productive" required class="productive">
-              <option>Select</option>
-              <option>Productive</option>
-              <option>Unproductive</option>
-            </select>
-          <section>
-            <button class="hidden btn submitRecorded" type="submit">Submit</button>
-            <button class="hidden btn submitPlanned" type="submit">Submit</button>
-            <button class="hidden btn deleteRecorded">
-              <i class="fa fa-trash" aria-hidden="true"></i>
-               </button>
-            <button class="hidden btn deletePlanned">
-              <i class="fa fa-trash" aria-hidden="true"></i>
-              </button>
-            <button class="hidden btn updateRecorded">
-              <i class="fa fa-pencil" aria-hidden="true"></i></button>
-            <button class="hidden btn updatePlanned">
-              <i class="fa fa-pencil" aria-hidden="true"></i></button>
-              <button class="hidden addPlannedRecord">Add to Records</button>
-            <button class="reset" type="reset">Reset</button>
-          </section>
-        </form>
     
-
-    <div class"row topNavRow">
+<div class="navParent">
+    <div class"row navRow">
       <header>Time <i class="money fa fa-usd" aria-hidden="true"></i>pent</header>
       
       <div class="topNavButtons">
         <button>
-          <i class="fa fa-sign-in" aria-hidden="true"></i>
+          <i class="sign-in fa fa-sign-in" aria-hidden="true"></i>
         </button>
         <button>
-          <i class="fa fa-question-circle" aria-hidden="true"></i>
+          <i class="question fa fa-question-circle" aria-hidden="true"></i>
         </button>
         <button>
-          <i class="fa fa-user-plus" aria-hidden="true"></i>
+          <i class="sign-up fa fa-user-plus" aria-hidden="true"></i>
         </button>
       </div>
       
@@ -72,11 +36,13 @@
         <div class="topNavDate">date</div>
       </div>
     </div>
-    
-    <div class="row">
+    </div>
+    <div class="row parent">
       <div class="col-4 display recorded">
+        
         <h3>Recorded Expenses</h3>
-        <div class="unRecordedMins"></div>
+        <div class="sectionTotal unRecordedMins"></div>
+        <canvas id="recordChart"></canvas>
 
         <table class="recordedList">
             
@@ -91,13 +57,14 @@
         <button class=" add addRecord">
         <i class="fa fa-plus-square" aria-hidden="true"></i>
       </button>    
-      <div class="row graph">
-          <canvas id="recordChart"></canvas>
-        </div>
+          
+        
       </div>
 
         <div class="col-4 display totals">
         <h3>Budget Summary</h3>
+        <div class="sectionTotal totalsTime"></div>
+        <canvas id="totalChart"></canvas>
         <table class="totalList">
         <tr>
           <th>Sub Totals</th>
@@ -105,14 +72,14 @@
         </tr>
         
       </table>
-      <div class="row graph">
-          <canvas id="totalChart"></canvas>
-        </div>
+          
         </div>
      
       <div class="col-4 display planned">
         
         <h3>Planned Expenses</h3>
+        <div class="sectionTotal unUsedPlanned"></div>
+        <canvas id="plannedChart"></canvas>
         <table class="plannedList">
             <tr>
                 <th>Name</th> 
@@ -125,16 +92,53 @@
           <i class="fa fa-plus-square" aria-hidden="true"></i>
         </button>
         
-        <div class="row graph">
-            <canvas id="plannedChart"></canvas>
-          </div>
+            
+      
          
       </div>
     
     </div>
     </div>
     
-       
+    <div class="hidden formBackground"></div>
+    <form class="hidden form">
+      
+           <button class="closer">
+             <i class="fa fa-times" aria-hidden="true"></i>
+           </button>
+           
+           <legend class="legend"></legend>
+           
+             <input name="name"  class="name"  type="text" placeholder="Name">
+             <input name="cost" class="cost"  type="text" placeholder="Cost">
+             <input name="category" class="category"  type="text" placeholder="Category">
+ <div class="productivityParent">
+   <label>Productivity:</label>
+             
+             <select name="productive" class="productive">
+               <option>Select</option>
+               <option>Productive</option>
+               <option>Unproductive</option>
+             </select>
+            </div>
+             
+           <section class="modalButtons">
+             <button class="hidden btn submitRecorded" type="submit">Submit</button>
+             <button class="hidden btn submitPlanned" type="submit">Submit</button>
+             <button class="hidden btn deleteRecorded">
+               <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+             <button class="hidden btn deletePlanned">
+               <i class="fa fa-trash" aria-hidden="true"></i>
+               </button>
+             <button class="hidden btn updateRecorded">
+               <i class="fa fa-pencil" aria-hidden="true"></i></button>
+             <button class="hidden btn updatePlanned">
+               <i class="fa fa-pencil" aria-hidden="true"></i></button>
+               <button class="hidden addPlannedRecord">Add to Records</button>
+             <button class="reset" type="reset">Reset</button>
+           </section>
+         </form>
 
     
     <script src="//code.jquery.com/jquery-3.0.0.min.js"></script> 

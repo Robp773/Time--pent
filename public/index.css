@@ -1,16 +1,28 @@
+
+
 html, body{
   font-family: Raleway, sans-serif;
   background: grey;
 height: 100%;
 }
-.filler{
-
-  height: 25%;
+.sign-in{
+  color: #E45641;
 }
-.expanderPlanned{
+.sign-up{
+  box-shadow: 1;
+   color: #44B3C2;
+}
+.question{
+  color: #ffb84d;
+}
+.navRow{
+  background: rgba(255, 255, 255, .9);
+}
+.navParent{
+  background: rgba(255, 255, 255, .5);
 
-  background: red;
-  height: 100%;
+  padding: 10px;
+  margin-top: 15px;
 }
 
 .graph{
@@ -22,6 +34,9 @@ height: 100%;
 }
 
 .totalList{
+  border: 2px solid black;
+  background:white;
+width: 100%;
   margin-bottom: 10px;
 }
 .add{
@@ -43,18 +58,20 @@ height: 100%;
 }
 
 .formBackground{
+  opacity: .7;
+  top: 0;
   position: fixed;
   height: 100%;
   width: 100%;
   background-color: gray;
-  opacity: .8;
-  z-index: 1; 
 }
 label{
   margin: auto;
 }
 .productive{
-  font-size: 15px;
+  border: 0;
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 .closer{
   float: right;
@@ -64,24 +81,41 @@ label{
   font-size: 15px;
 }
 
+.productivityParent{
+  border: 2px solid rgb(238, 238, 238);
+  display: inline-block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1px;
+  background: white;
+}
+.modalButtons{
+  padding: 5px;
+}
 legend{
+  color: white;
   margin: auto;
+  padding: 10px;
   font-size: 20px;
   font-weight: bold;
   }
+  label{
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
   form{
-    padding: 10px;
-    z-index: 1;
+    padding: 5px;
     text-align: center;
     height: max-content;
-    width: 35%;
+    width: fit-content;
     margin: auto;
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-background: lightgrey
+background: gray
   }
 .hidden{
   display: none;
@@ -90,6 +124,11 @@ background: lightgrey
   background: orange;
   border-left: 3px solid black;
   border-right: 3px solid black;
+}
+
+tr{
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
 }
 
 .hidden{
@@ -102,15 +141,22 @@ input{
   display: block;
 }
 
+canvas{
+  background: rgba(128, 128, 128, .65);
+}
+
 table{
   background: white;
   border: 1px solid black;
   padding: 5px;
-  margin: auto;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  
 }
 .total{
   border: 1px solid black;
-  background-color: darkgrey;
   text-align: center;
   font-weight: bold;
   }
@@ -128,15 +174,23 @@ th{
 }
 
 header{
+  font-weight: bold;
   font-size: 35px;
 }
+.parent{
 
+  height: 100%;
+  width: 100%;
+}
 
 h4{
   text-align: center;
 }
 
 .topNavRow{
+  position: fixed;
+  top: 0;
+  right: 0;
   font-size: 0;
 }
 header, .topNavButtons, .topNavDateTime{
@@ -144,9 +198,15 @@ header, .topNavButtons, .topNavDateTime{
   width: 33%;
   display: inline-block;
 }
+.sectionTotal{
+  font-weight: bold;
+  margin: 5px;
+}
 
 .display{
-  height: 75%;
+ height: 100%;
+ margin-bottom: 15px;
+ margin-top: 15px;
   padding: 10px;
   text-align: center;
   border: 1px solid black;
@@ -159,6 +219,7 @@ header, .topNavButtons, .topNavDateTime{
   background: rgba(68, 179, 194, .89)
 }
 .totals{
+  font-weight: bold;
   background: rgba(255, 184, 77, .89);
 }
   .recordedTotal{
@@ -169,8 +230,6 @@ header, .topNavButtons, .topNavDateTime{
 }
 .plannedTotal{
   background: #44B3C2}
-  .money{
-    color: #42f465;
-  }
+
 
 

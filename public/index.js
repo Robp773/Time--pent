@@ -11,26 +11,6 @@ let globalVars = {
   unusedPastTime: 0
 };
 
-
-
-$('.addPlanned').click(function(){
-  $('.form, .submitPlanned, .formBackground').removeClass('hidden'); 
-  $('.submitRecorded').addClass('hidden');
-  $('.legend').html('Add Planned Expense ');
-});
-
-$('.addRecord').click(function(){
-  $('.form, .submitRecorded, .formBackground').removeClass('hidden');
-  $('.submitPlanned').addClass('hidden');
-  $('.legend').html('Add a Record');
-  
-});
-
-$('.closer').click(function(){
-  $(this).closest('form').addClass('hidden');
-  $('.formBackground').addClass('hidden');
-  
-});
 function calculateTotals (){
   globalVars.recordedData.forEach(function(item){
     globalVars.recordedCost = globalVars.recordedCost + item.cost;
@@ -63,7 +43,8 @@ function calculateTotals (){
   
   let todaysUnusedMins  =  futureFreeTime - globalVars.plannedCost;
   buildChart(pastFreeTime, todaysUnusedMins);
-  $('.unRecordedMins').append(`<div>${pastFreeTime} Unrecorded Minutes</div>`);
+  $('.unUsedPlanned').html(`Unplanned Minutes: ${todaysUnusedMins}`);
+  $('.unRecordedMins').html(`Unrecorded Minutes: ${pastFreeTime}`);
   $('.totalList').empty();
   $('.totalList').append(`
    <tr class="total">
@@ -115,6 +96,7 @@ function calcTimeDate(){
 	 hours = 12;
   }
   let finalTime = `${hours}:${minutes} ${suffix}`;
+  $('.totalsTime').html(`As of ${finalTime}`);
  
   $('.topNavTime').html(finalTime);
  
@@ -233,6 +215,11 @@ function populatePlanned(data){
 
 function buildChart(pastFreeTime, todaysUnusedMins){
 
+  Chart.defaults.global.defaultFontSize = 13;
+  Chart.defaults.global.defaultFontColor = 'black';
+  Chart.defaults.global.layout.padding = 0;
+  Chart.defaults.global.layout.margin = 0;
+
   const ctxTotal = $('#totalChart');
   ctxTotal.height = 250;
   const totalChart = new Chart(ctxTotal, {
@@ -260,12 +247,19 @@ function buildChart(pastFreeTime, todaysUnusedMins){
         borderWidth: .5
       }]
     },
+    options: {
+      title: {
+        fontSize: 25,
+       
+      }
+    }
 
   });
-   
-  const ctxRecord = $('#recordChart');
+  
 
+  const ctxRecord = $('#recordChart');
   const recordChart = new Chart(ctxRecord, {
+    
     type: 'doughnut',
     
     data: {
@@ -286,6 +280,7 @@ function buildChart(pastFreeTime, todaysUnusedMins){
         borderWidth: .5
       }]
     },
+    
 
   });
    
@@ -307,8 +302,6 @@ function buildChart(pastFreeTime, todaysUnusedMins){
         borderColor: [
           '#FFFFF',
           '#FFFFF',
-
-           
         ],
         borderWidth: .5
       }]
@@ -328,7 +321,7 @@ $('.submitRecorded').click(function(event){
   let cost = $('.cost').val(); 
     
   if(!(cost > globalVars.unusedPastTime)){
-    $('.unRecordedMins').empty();
+    
     resetGlobal();
     
     $.ajax(
@@ -372,9 +365,15 @@ $('.submitPlanned').click(function(event){
     productive: productive,
     category: category
   };
-  $('.unRecordedMins').empty();
-  resetGlobal();
-  addPlanned(data);
+  console.log(globalVars.unusedPastTime);
+  if(!(globalVars.unusedPastTime < cost )){
+    resetGlobal();
+    addPlanned(data);
+  }
+  else{
+    alert('You tried to spend more mins than have passed so far today');
+  }
+  
 });
 
 function addRecorded(data){
@@ -405,12 +404,6 @@ function addPlanned(data){
     });
 }
 
-   
-
-
-// $('.recordedName').click(function(){
-//   alert('it worked');
-// });
 
 $('.recordedList').on('click', '.listedRecord', function() {
   
@@ -611,6 +604,25 @@ function resetGlobal(){
   };
 }
 
+$('.addPlanned').click(function(){
+  $('.form, .submitPlanned, .formBackground').removeClass('hidden'); 
+  $('.submitRecorded').addClass('hidden');
+  $('.legend').html('Add Planned Expense ');
+});
+
+$('.addRecord').click(function(){
+  $('.form, .submitRecorded, .formBackground').removeClass('hidden');
+  $('.submitPlanned').addClass('hidden');
+  $('.legend').html('Add a Record');
+  
+});
+
+$('.closer').click(function(){
+  $(this).closest('form').addClass('hidden');
+  $('.formBackground').addClass('hidden');
+  
+});
+$('.question').click
 
 $(document).ready(function() {
   loadRecorded();

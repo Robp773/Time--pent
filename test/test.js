@@ -135,8 +135,8 @@ describe('all API endpoints', function(){
   });
   describe('put requests', function(){
     let updateItem = {name: 'updatedName', category: 'test'};
-        
-    it('should update a single item from SpentMin on requests to /homeRecorded/:id', function(){
+    it('should update a single item from SpentMin on requests to /homeRecorded', function(){
+      // create
       return SpentMin
         .findOne()
         .then(function(item){
@@ -149,9 +149,7 @@ describe('all API endpoints', function(){
               res.body.name && res.body.category.should.equal(updateItem.name && updateItem.category);
             });
 
-        });
-
-            
+        });   
 
     });
 
