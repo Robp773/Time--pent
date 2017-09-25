@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "mocha"
+    "start": "nodemon server.js"
   },
   "name": "",
   "version": "",
