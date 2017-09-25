@@ -219,6 +219,7 @@ header, .topNavButtons, .topNavDateTime{
   background: rgba(68, 179, 194, .89)
 }
 .totals{
+  font-size: 20px;
   font-weight: bold;
   background: rgba(255, 184, 77, .89);
 }
@@ -230,6 +231,3 @@ header, .topNavButtons, .topNavDateTime{
 }
 .plannedTotal{
   background: #44B3C2}
-
-
-

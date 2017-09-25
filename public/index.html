@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="index.css" rel="stylesheet" type="text/css"/>
     <link href="grid.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.4.0/balloon.min.css">
+    
     
   </head>
   <body>
@@ -41,7 +43,7 @@
       <div class="col-4 display recorded">
         
         <h3>Recorded Expenses</h3>
-        <div class="sectionTotal unRecordedMins"></div>
+        <div data-balloon="Minutes today that have passed without being recorded" data-balloon-pos="up"class="sectionTotal unRecordedMins"></div>
         <canvas id="recordChart"></canvas>
 
         <table class="recordedList">
@@ -54,7 +56,7 @@
           </tr>
         </table>
 
-        <button class=" add addRecord">
+        <button data-balloon="Add a Record" data-balloon-pos="up" class=" add addRecord">
         <i class="fa fa-plus-square" aria-hidden="true"></i>
       </button>    
           
@@ -78,7 +80,7 @@
       <div class="col-4 display planned">
         
         <h3>Planned Expenses</h3>
-        <div class="sectionTotal unUsedPlanned"></div>
+        <div data-balloon="Total minutes left in the day that are not planned." data-balloon-pos="up"class="sectionTotal unUsedPlanned"></div>
         <canvas id="plannedChart"></canvas>
         <table class="plannedList">
             <tr>
@@ -88,7 +90,7 @@
                 <th>Est. Cost</th> 
           </tr>
         </table>
-        <button class="add addPlanned">
+        <button data-balloon="Add a Future Plan" data-balloon-pos="up" class="add addPlanned">
           <i class="fa fa-plus-square" aria-hidden="true"></i>
         </button>
         
@@ -109,13 +111,13 @@
            
            <legend class="legend"></legend>
            
-             <input name="name"  class="name"  type="text" placeholder="Name">
-             <input name="cost" class="cost"  type="text" placeholder="Cost">
+             <input name="name"  class="name"  type="text" placeholder="Name of record">
+             <input name="cost" class="cost"  type="text" placeholder="Cost in minutes">
              <input name="category" class="category"  type="text" placeholder="Category">
- <div class="productivityParent">
+ <div data-balloon="Is this productive or unproductive?" data-balloon-pos="up" class="productivityParent">
    <label>Productivity:</label>
              
-             <select name="productive" class="productive">
+             <select  name="productive" class="productive">
                <option>Select</option>
                <option>Productive</option>
                <option>Unproductive</option>
@@ -125,15 +127,15 @@
            <section class="modalButtons">
              <button class="hidden btn submitRecorded" type="submit">Submit</button>
              <button class="hidden btn submitPlanned" type="submit">Submit</button>
-             <button class="hidden btn deleteRecorded">
+             <button data-balloon="Delete" data-balloon-pos="up" class="hidden btn deleteRecorded">
                <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
-             <button class="hidden btn deletePlanned">
+             <button data-balloon="Delete" data-balloon-pos="up" class="hidden btn deletePlanned">
                <i class="fa fa-trash" aria-hidden="true"></i>
                </button>
-             <button class="hidden btn updateRecorded">
+             <button data-balloon="Edit" data-balloon-pos="up" class="hidden btn updateRecorded">
                <i class="fa fa-pencil" aria-hidden="true"></i></button>
-             <button class="hidden btn updatePlanned">
+             <button data-balloon="Edit" data-balloon-pos="up" class="hidden btn updatePlanned">
                <i class="fa fa-pencil" aria-hidden="true"></i></button>
                <button class="hidden addPlannedRecord">Add to Records</button>
              <button class="reset" type="reset">Reset</button>

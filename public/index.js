@@ -48,27 +48,27 @@ function calculateTotals (){
   $('.totalList').empty();
   $('.totalList').append(`
    <tr class="total">
-   <td>Daily Budget</td>
+   <td data-balloon="Total number of minutes in a day" data-balloon-pos="left">Daily Budget</td>
    <td>1440 mins</td>
    </tr>
    <tr class="recordedTotal">
-   <td>Recorded Expenses</td>
+   <td data-balloon="Current recorded mins from 'Recorded Expenses'" data-balloon-pos="left">Recorded Expenses</td>
    <td>-${globalVars.recordedCost} mins</td>
    </tr>
    <tr class="unspentTotal">
-   <td>Unspent Passed Time</td>
+   <td data-balloon="Number of minutes passed that were not recorded" data-balloon-pos="left">Unspent Passed Time</td>
    <td>-${pastFreeTime} mins</td>
    </tr>
    <tr class="total">
-   <td><b>Current Budget</b></td>
+   <td data-balloon="Minutes left in the day" data-balloon-pos="left"><b>Current Budget</b></td>
    <td>${futureFreeTime} mins</td>
    </tr>
    <tr class="plannedTotal">
-   <td>Planned Expenses</td>
+   <td data-balloon="Minutes used in future plans" data-balloon-pos="left">Planned Expenses</td>
    <td>-${globalVars.plannedCost} mins</td>
    </tr>
    <tr class="total projected">
-    <td>Projected Budget</td>
+    <td data-balloon="Number of minutes left after accounting for future plans" data-balloon-pos="left">Projected Budget</td>
     <td>${todaysUnusedMins} mins</td>
    </tr>
   `); 
@@ -147,10 +147,10 @@ function populateRecorded(data){
   $('.recordedList').empty();
   $('.recordedList').append(
     ` <tr>
-    <th>Name</th> 
-    <th>Category</th> 
-    <th>Type</th> 
-    <th>Cost</th> 
+    <th data-balloon="Name of Record" data-balloon-pos="up">Name</th> 
+    <th data-balloon="Example- 'Health' or 'Studying'" data-balloon-pos="up">Category</th> 
+    <th data-balloon="Was this task productive or unproductive?" data-balloon-pos="up">Type</th> 
+    <th data-balloon="Number of minutes used for task" data-balloon-pos="up">Cost</th> 
 </tr>`);
 
   data.forEach(function(item){  
@@ -189,10 +189,10 @@ function populatePlanned(data){
           
   $('.plannedList').append(`
         <tr>
-      <th>Name</th> 
-      <th>Category</th> 
-      <th>Type</th> 
-      <th>Cost</th> 
+        <th data-balloon="Name of planned expense" data-balloon-pos="up">Name</th> 
+        <th data-balloon="Example- 'Health' or 'Studying'" data-balloon-pos="up">Category</th> 
+        <th data-balloon="Will this task be productive or unproductive?" data-balloon-pos="up">Type</th> 
+        <th data-balloon="Estimate of mins needed" data-balloon-pos="top">Cost</th> 
   </tr>`);
 
   data.forEach(function(item){  
@@ -622,7 +622,6 @@ $('.closer').click(function(){
   $('.formBackground').addClass('hidden');
   
 });
-$('.question').click
 
 $(document).ready(function() {
   loadRecorded();
