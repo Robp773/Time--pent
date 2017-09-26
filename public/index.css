@@ -19,6 +19,9 @@ height: 100%;
   background: rgba(255, 255, 255, .9);
 }
 .navParent{
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   background: rgba(255, 255, 255, .5);
 
   padding: 10px;
@@ -104,7 +107,15 @@ legend{
     padding-top: 1px;
     padding-bottom: 1px;
   }
+  .recordBG{
+    background: #E45641;
+    
+  }
+  .plannedBG{
+background: #44B3C2;
+  }
   form{
+    
     padding: 5px;
     text-align: center;
     height: max-content;
@@ -115,7 +126,7 @@ legend{
     left: 0;
     bottom: 0;
     right: 0;
-background: gray
+    
   }
 .hidden{
   display: none;
@@ -212,13 +223,39 @@ header, .topNavButtons, .topNavDateTime{
   border: 1px solid black;
   display: inline-block;
 }
+.parentHelpText{
+  /* text-align: center; */
+}
+.helpText{
+  padding: 5px;
+z-index: 1;
+  height: max-content;
+  width: 50%;
+  background: white;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
 .recorded{
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   background:#E45641;
 }
 .planned{
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   background: rgba(68, 179, 194, .89)
 }
 .totals{
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   font-size: 20px;
   font-weight: bold;
   background: rgba(255, 184, 77, .89);
@@ -230,4 +267,5 @@ header, .topNavButtons, .topNavDateTime{
   background: #ffb84d;
 }
 .plannedTotal{
-  background: #44B3C2}
+  background: #44B3C2
+}

@@ -192,7 +192,7 @@ function populatePlanned(data){
         <th data-balloon="Name of planned expense" data-balloon-pos="up">Name</th> 
         <th data-balloon="Example- 'Health' or 'Studying'" data-balloon-pos="up">Category</th> 
         <th data-balloon="Will this task be productive or unproductive?" data-balloon-pos="up">Type</th> 
-        <th data-balloon="Estimate of mins needed" data-balloon-pos="top">Cost</th> 
+        <th data-balloon="Estimate of minutes needed" data-balloon-pos="top">Cost</th> 
   </tr>`);
 
   data.forEach(function(item){  
@@ -608,19 +608,25 @@ $('.addPlanned').click(function(){
   $('.form, .submitPlanned, .formBackground').removeClass('hidden'); 
   $('.submitRecorded').addClass('hidden');
   $('.legend').html('Add Planned Expense ');
+  $('.form').addClass('plannedBG');
 });
 
 $('.addRecord').click(function(){
   $('.form, .submitRecorded, .formBackground').removeClass('hidden');
   $('.submitPlanned').addClass('hidden');
   $('.legend').html('Add a Record');
+  $('.form').addClass('recordBG');
   
 });
 
 $('.closer').click(function(){
   $(this).closest('form').addClass('hidden');
-  $('.formBackground').addClass('hidden');
+  $('.formBackground, .helpText').addClass('hidden');
   
+});
+
+$('.helpButton').click(function(){
+$('.helpText, .formBackground').removeClass('hidden');
 });
 
 $(document).ready(function() {
