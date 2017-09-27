@@ -319,6 +319,7 @@ function addPlanned(data) {
 $('.recordedList').on('click', '.listedRecord', function() {
   $('.form, .formBackground, .deleteRecorded, .updateRecorded').removeClass('hidden');
   $('.submitRecorded, .submitPlanned').addClass('hidden');
+  $('.form ').addClass('recordBG');
   $('.legend').html('Edit or Delete');
   let name = $(this).closest('tr').find('.recordedName').text();
   let cost = $(this).closest('tr').find('.recordedCost').text();
@@ -405,7 +406,8 @@ $('.plannedList').on('click', '.listedPlanned', function() {
   //  opens up modal for edit and delete
   $('.form, .formBackground, .deletePlanned, .updatePlanned, .addPlannedRecord').removeClass('hidden');
   $('.submitRecorded, .submitPlanned').addClass('hidden');
-  $('.legend').html('Edit, Delete, or Add to Records');
+  $('.form ').addClass('plannedBG');
+  $('.legend').html('Edit, Delete, or Mark Completed');
   // getting the table data text values from the tr that was clicked on.
   let name = $(this).closest('tr').find('.plannedName').text();
   let cost = $(this).closest('tr').find('.plannedCost').text();

@@ -61,6 +61,7 @@
 	width: 100%;
 	background-color: gray;
 }
+
 label {
 	margin: auto;
 }
@@ -106,7 +107,7 @@ label {
 	background: #44B3C2;
 }
 form {
-	padding: 5px;
+	padding: 20px;
 	text-align: center;
 	height: max-content;
 	width: fit-content;
@@ -119,11 +120,6 @@ form {
 }
 .hidden {
 	display: none;
-}
-.subtract {
-	background: orange;
-	border-left: 3px solid black;
-	border-right: 3px solid black;
 }
 tr {
 	border-top: 2px solid black;
@@ -203,9 +199,11 @@ header, .topNavButtons, .topNavDateTime {
 	/* text-align: center; */
 }
 .helpText {
-	padding: 5px;
+	height: 100%;
+	overflow: scroll;
+	font-size: 20px;
+	padding: 10px;
 	z-index: 1;
-	height: max-content;
 	width: 50%;
 	background: white;
 	margin: auto;
