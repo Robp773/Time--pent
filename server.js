@@ -1,6 +1,4 @@
 // server isn't returning an error when fields are missing on post requests. 
-
-
 'use strict';
 const express = require('express');
 const app = express();
@@ -8,83 +6,70 @@ const mongoose = require('mongoose');
 const {DATABASE_URL, PORT} = require('./config');
 const {SpentMin, PlannedMin} = require('./models');
 const bodyParser = require('body-parser');
-const cors =  require('cors');
+const cors = require('cors');
 mongoose.promise = global.promise;
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(cors());
 // Public files
-
-app.get('/', function(req, res){
+app.get('/', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
-app.get('/charts', function(req, res){
+app.get('/charts', function(req, res) {
   res.sendFile(__dirname + '/public/charts.html');
 });
-
 let reservedArray = [];
 // Get requests
-
-app.get('/homeRecorded', function(req, res){
-  SpentMin
-    .find()
-    .exec()
-    .then(function(items){
-      res.json(items);
-    })
-    .catch(function(err) {
-      console.error(err);
-      res.status(500).json({error: 'something went terribly wrong'});
+app.get('/homeRecorded', function(req, res) {
+  SpentMin.find().exec().then(function(items) {
+    res.json(items);
+  }).catch(function(err) {
+    console.error(err);
+    res.status(500).json({
+      error: 'something went terribly wrong'
     });
+  });
 });
-
-app.get('/homePlanned', function(req, res){
-  PlannedMin
-    .find()
-    .exec()
-    .then(function(items){
-      res.json(items);
-    })
-    .catch(function(err) {
-      console.error(err);
-      res.status(500).json({error: 'something went terribly wrong'});
+app.get('/homePlanned', function(req, res) {
+  PlannedMin.find().exec().then(function(items) {
+    res.json(items);
+  }).catch(function(err) {
+    console.error(err);
+    res.status(500).json({
+      error: 'something went terribly wrong'
     });
+  });
 });
-
 // Post Requests
-
-app.post('/homeRecorded', function(req, res){
+app.post('/homeRecorded', function(req, res) {
   const requiredItems = ['name', 'cost', 'productive', 'category'];
-  for(let i = 0 ;i<requiredItems.length;i++){
+  for (let i = 0; i < requiredItems.length; i++) {
     const field = requiredItems[i];
-
-    if (!(field in req.body)){
+    if (!(field in req.body)) {
       const message = `Missing \`${field}\` in request body`;
       console.error(message);
       return res.status(400).send(message);
     }
   }
-  SpentMin
-    .create({
-      name: req.body.name,
-      cost: req.body.cost,
-      productive: req.body.productive,
-      category: req.body.category
-    })
-    .then(function(spentMinPost){
-      res.status(201).json(spentMinPost);
-    }) 
-    .catch(function(err){
-      console.error(err);
-      res.status(500).json({error: 'Something went wrong'});
+  SpentMin.create({
+    name: req.body.name,
+    cost: req.body.cost,
+    productive: req.body.productive,
+    category: req.body.category
+  }).then(function(spentMinPost) {
+    res.status(201).json(spentMinPost);
+  }).catch(function(err) {
+    console.error(err);
+    res.status(500).json({
+      error: 'Something went wrong'
     });
+  });
 });
-  
-app.post('/homePlanned', function(req, res){
+app.post('/homePlanned', function(req, res) {
   const requiredItems = ['name', 'cost', 'productive', 'category'];
-  for(let i=0;i<requiredItems.length;i++){
+  for (let i = 0; i < requiredItems.length; i++) {
     const field = requiredItems[i];
-    if (!(field in req.body)){
+    if (!(field in req.body)) {
       const message = `Missing \`${field}\` in request body`;
       console.error(message);
       return res.status(400).send(message);
@@ -96,76 +81,62 @@ app.post('/homePlanned', function(req, res){
     //   return res.status(400).send('error');
     // }
   }
-
-  PlannedMin
-    .create({
-      name: req.body.name,
-      cost: req.body.cost,
-      productive: req.body.productive,
-      category: req.body.category
-    })
-    .then(function(plannedMinPost){
-      res.status(201).json(plannedMinPost);
-    }) 
-    .catch(function(err){
-      console.error(err);
-      res.status(500).json({error: 'Something went wrong'});
+  PlannedMin.create({
+    name: req.body.name,
+    cost: req.body.cost,
+    productive: req.body.productive,
+    category: req.body.category
+  }).then(function(plannedMinPost) {
+    res.status(201).json(plannedMinPost);
+  }).catch(function(err) {
+    console.error(err);
+    res.status(500).json({
+      error: 'Something went wrong'
     });
+  });
 });
-
-
 // Put Requests
-
-app.put('/homeRecorded', function(req, res){
-
-  SpentMin
-    .findOneAndUpdate(req.body.old, {$set: req.body.updated}, {new: true})
-    .exec()
-    .then(function(updatedItem){
-      res.status(201).json(updatedItem)
-        .catch(function(err){ 
-          res.status(500).json({message: 'Something went wrong'});
-        });
+app.put('/homeRecorded', function(req, res) {
+  SpentMin.findOneAndUpdate(req.body.old, {
+    $set: req.body.updated
+  }, {
+    new: true
+  }).exec().then(function(updatedItem) {
+    res.status(201).json(updatedItem).catch(function(err) {
+      res.status(500).json({
+        message: 'Something went wrong'
+      });
     });
+  });
 });
-
-app.put('/homePlanned', function(req, res){
-
-  PlannedMin
-    .findOneAndUpdate(req.body.old, {$set: req.body.updated}, {new: true})
-    .exec()
-    .then(function(updatedItem){
-      res.status(201).json(updatedItem)
-        .catch(function(err){ 
-          res.status(500).json({message: 'Something went wrong'});
-        });
+app.put('/homePlanned', function(req, res) {
+  PlannedMin.findOneAndUpdate(req.body.old, {
+    $set: req.body.updated
+  }, {
+    new: true
+  }).exec().then(function(updatedItem) {
+    res.status(201).json(updatedItem).catch(function(err) {
+      res.status(500).json({
+        message: 'Something went wrong'
+      });
     });
+  });
 });
-
 // Delete requests
-
-app.delete('/homeRecorded', function(req, res){
+app.delete('/homeRecorded', function(req, res) {
   console.log(req.body);
-  SpentMin
-    .findOneAndRemove(req.body)
-    .exec()
-    .then(function(){
-      res.status(204).end();
-    });    
+  SpentMin.findOneAndRemove(req.body).exec().then(function() {
+    res.status(204).end();
+  });
 });
-
-app.delete('/homePlanned', function(req, res){
-  PlannedMin
-    .findOneAndRemove(req.body)
-    .exec()
-    .then(function() {
-      res.status(204).end();
-    });
+app.delete('/homePlanned', function(req, res) {
+  PlannedMin.findOneAndRemove(req.body).exec().then(function() {
+    res.status(204).end();
+  });
 });
-
 let server;
 // connects mongoose and starts server
-function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+function runServer(databaseUrl = DATABASE_URL, port = PORT) {
   return new Promise((resolve, reject) => {
     // identifies the server url to connect to for mongoDB database server.
     mongoose.connect(databaseUrl, err => {
@@ -177,7 +148,7 @@ function runServer(databaseUrl=DATABASE_URL, port=PORT) {
         console.log(`Your app is listening on port ${port}`);
         resolve();
       })
-      // node method that binds event handlers to events by their string name ('error'), identical jquery method.
+        // node method that binds event handlers to events by their string name ('error'), identical jquery method.
         .on('error', err => {
           mongoose.disconnect();
           reject(err);
@@ -202,4 +173,8 @@ function closeServer() {
 if (require.main === module) {
   runServer().catch(err => console.error(err));
 }
-module.exports = {app, runServer, closeServer};
+module.exports = {
+  app,
+  runServer,
+  closeServer
+};

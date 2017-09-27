@@ -1,186 +1,114 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Time Spent</title>
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" />
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link href="index.css" rel="stylesheet" type="text/css"/>
-    <link href="grid.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.4.0/balloon.min.css">
-    
-    
-  </head>
-  <body>
-    
-   
-
-    
-<div class="navParent">
-    <div class"row navRow">
-      <header>Time <i class="money fa fa-usd" aria-hidden="true"></i>pent</header>
-      
-      <div class="topNavButtons">
-        <button>
-          <i class="sign-in fa fa-sign-in" aria-hidden="true"></i>
-        </button>
-        <button class="helpButton">
-          <i class="question fa fa-question-circle" aria-hidden="true"></i>
-        </button>
-        <button>
-          <i class="sign-up fa fa-user-plus" aria-hidden="true"></i>
-        </button>
-      </div>
-      
-      <div class="topNavDateTime">
-        <div class="topNavTime">time</div>
-        <div class="topNavDate">date</div>
-      </div>
-    </div>
-    </div>
-    <div class="row parent">
-      <div class="col-4 display recorded">
-        
-        <h3>Recorded Expenses</h3>
-        <div data-balloon="Minutes today that have passed without being recorded" data-balloon-pos="up"class="sectionTotal unRecordedMins"></div>
-        <canvas id="recordChart"></canvas>
-
-        <table class="recordedList">
-            
-            <tr>
-                <th>Name</th> 
-                <th>Category</th> 
-                <th>Type</th> 
-                <th>Cost</th> 
-          </tr>
-        </table>
-
-        <button data-balloon="Add a Record" data-balloon-pos="up" class=" add addRecord">
-        <i class="fa fa-plus-square" aria-hidden="true"></i>
-      </button>    
-          
-        
-      </div>
-
-        <div class="col-4 display totals">
-        <h3>Budget Summary</h3>
-        <div class="sectionTotal totalsTime"></div>
-        <canvas id="totalChart"></canvas>
-        <table class="totalList">
-        <tr>
-          <th>Sub Totals</th>
-          <th>Cost</th>
-        </tr>
-        
-      </table>
-          
-        </div>
-     
-      <div class="col-4 display planned">
-        
-        <h3>Planned Expenses</h3>
-        <div data-balloon="Total minutes left in the day that are not planned." data-balloon-pos="up"class="sectionTotal unUsedPlanned"></div>
-        <canvas id="plannedChart"></canvas>
-        <table class="plannedList">
-            <tr>
-                <th>Name</th> 
-                <th>Category</th> 
-                <th>Type</th> 
-                <th>Est. Cost</th> 
-          </tr>
-        </table>
-        <button data-balloon="Add a Future Plan" data-balloon-pos="up" class="add addPlanned">
-          <i class="fa fa-plus-square" aria-hidden="true"></i>
-        </button>
-        
-            
-      
-         
-      </div>
-    
-    </div>
-    </div>
-    
-    <div class="hidden helpText">
-      <button class="closer">
-          <i class="fa fa-times" aria-hidden="true"></i>
-        </button>
-      <h3>Time $pent</h3>
-      
-      <p>Time $pent is an app that was designed to help users see their time
-        through a different perspective. Instead of seeing time as a rigid chronological system of 
-        hours, minutes, and seconds,
-        users can gauge how much time they really have in a similar way to how they plan 
-        their budget while looking at their bank account.
-        Instead of planning out what will happen at some specific time in the day, users can budget
-        what they "spend" their time on, and keep track of their "budget" of time throughout the day.
-        Your time budget refers to the 1,440 minutes in each day available to you.
-        Many people either overestimate or underestimate how much time they have to accomplish what they want
-        for the day and seeing time as more of a finite resource can help people more effectively go about
-        their daily tasks. </p>
-        
-        <p>One obvious difference between time and money is that time is "spent" regardless 
-        of what you choose to do with it. Everyday your budget of minutes will fall all the way to 0 even if you do 
-        absolutely nothing with your time. Knowing this can help users make better choices about
-        what to spend their time on. If everyone had a daily budget of $1,440 in real money, and this budget
-        would disapear by the 
-        end of the day, just about everyone would figure out something worthwhile to do with all that
-        money. Seeing time from this perspective might motivate people to conciously spend their time rather
-        than just letting it slip away as the day goes on. </p>
-
-
-
- 
-        
-    </div>
-  
-    <div class="hidden formBackground"></div>
-    <form class="hidden form">
-      
-           <button class="closer">
-             <i class="fa fa-times" aria-hidden="true"></i>
-           </button>
-           
-           <legend class="legend"></legend>
-             <input name="name"  class="name"  type="text" placeholder="Name of record">
-             <input name="cost" class="cost"  type="text" placeholder="Cost in minutes">
-             <input name="category" class="category"  type="text" placeholder="Category">
- <div data-balloon="Is this productive or unproductive?" data-balloon-pos="up" class="productivityParent">
-   <label>Productivity:</label>
-             
-             <select  name="productive" class="productive">
-               <option>Select</option>
-               <option>Productive</option>
-               <option>Unproductive</option>
-             </select>
-            </div>
-             
-           <section class="modalButtons">
-             <button class="hidden btn submitRecorded" type="submit">Submit</button>
-             <button class="hidden btn submitPlanned" type="submit">Submit</button>
-             <button data-balloon="Delete" data-balloon-pos="up" class="hidden btn deleteRecorded">
-               <i class="fa fa-trash" aria-hidden="true"></i>
-                </button>
-             <button data-balloon="Delete" data-balloon-pos="up" class="hidden btn deletePlanned">
-               <i class="fa fa-trash" aria-hidden="true"></i>
-               </button>
-             <button data-balloon="Edit" data-balloon-pos="up" class="hidden btn updateRecorded">
-               <i class="fa fa-pencil" aria-hidden="true"></i></button>
-             <button data-balloon="Edit" data-balloon-pos="up" class="hidden btn updatePlanned">
-               <i class="fa fa-pencil" aria-hidden="true"></i></button>
-               <button class="hidden addPlannedRecord">Add to Records</button>
-             <button class="reset" type="reset">Reset</button>
-           </section>
-         </form>
-
-    
-    <script src="//code.jquery.com/jquery-3.0.0.min.js"></script> 
-    <script src="https://use.fontawesome.com/8f440fa89f.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="index.js"></script>
-    
-  </body>
-  
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width" name="viewport">
+	<title>Time Spent</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+	<link href="index.css" rel="stylesheet" type="text/css">
+	<link href="grid.css" rel="stylesheet" type="text/css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.4.0/balloon.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- entire top row of elements -->
+	<div class="navParent">
+		<div>
+			<header>
+				Time <i aria-hidden="true" class="money fa fa-usd"></i>pent
+      </header>
+      <!-- sign up + sign in + 'help' buttons -->
+			<div class="topNavButtons">
+				<button><i aria-hidden="true" class="sign-in fa fa-sign-in"></i></button> <button class="helpButton"><i aria-hidden="true" class="question fa fa-question-circle"></i></button> <button><i aria-hidden="true" class="sign-up fa fa-user-plus"></i></button>
+			</div>
+			<div class="topNavDateTime">
+				<div class="topNavTime">
+					time
+				</div>
+				<div class="topNavDate">
+					date
+				</div>
+			</div>
+		</div>
+  </div>
+  <!-- row of recorded, planned, and totals sections -->
+	<div class="row parent">
+		<div class="col-4 display recorded">
+			<h3>Recorded Expenses</h3>
+			<div class="sectionTotal unRecordedMins" data-balloon="Minutes today that have passed without being recorded" data-balloon-pos="up"></div>
+			<canvas id="recordChart"></canvas>
+			<table class="recordedList">
+				<tr>
+					<th>Name</th>
+					<th>Category</th>
+					<th>Type</th>
+					<th>Cost</th>
+				</tr>
+			</table><button class=" add addRecord" data-balloon="Add a Record" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-plus-square"></i></button>
+		</div>
+		<div class="col-4 display totals">
+			<h3>Budget Summary</h3>
+			<div class="sectionTotal totalsTime"></div>
+			<canvas id="totalChart"></canvas>
+			<table class="totalList">
+				<tr>
+					<th>Sub Totals</th>
+					<th>Cost</th>
+				</tr>
+			</table>
+		</div>
+		<div class="col-4 display planned">
+			<h3>Planned Expenses</h3>
+			<div class="sectionTotal unUsedPlanned" data-balloon="Total minutes left in the day that are not planned." data-balloon-pos="up"></div>
+			<canvas id="plannedChart"></canvas>
+			<table class="plannedList">
+				<tr>
+					<th>Name</th>
+					<th>Category</th>
+					<th>Type</th>
+					<th>Est. Cost</th>
+				</tr>
+			</table><button class="add addPlanned" data-balloon="Add a Future Plan" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-plus-square"></i></button>
+		</div>
+  </div>
+  <!-- help button when clicked displays this -->
+	<div class="hidden helpText">
+		<button class="closer"><i aria-hidden="true" class="fa fa-times"></i></button>
+		<h3>Time $pent</h3>
+		<p>Time $pent is an app that was designed to help users see their time through a different perspective. Instead of seeing time as a rigid chronological system of hours, minutes, and seconds, users can gauge how much time they really have in a similar way to how they plan their budget while looking at their bank account. Instead of planning out what will happen at some specific time in the day, users can budget what they "spend" their time on, and keep track of their "budget" of time throughout the day. Your time budget refers to the 1,440 minutes in each day available to you. Many people either overestimate or underestimate how much time they have to accomplish what they want for the day and seeing time as more of a finite resource can help people more effectively go about their daily tasks.</p>
+		<p>One obvious difference between time and money is that time is "spent" regardless of what you choose to do with it. Everyday your budget of minutes will fall all the way to 0 even if you do absolutely nothing with your time. Knowing this can help users make better choices about what to spend their time on. If everyone had a daily budget of $1,440 in real money, and this budget would disapear by the end of the day, just about everyone would figure out something worthwhile to do with all that money. Seeing time from this perspective might motivate people to conciously spend their time rather than just letting it slip away as the day goes on.</p>
+  </div>
+  <!-- modal grey background -->
+  <div class="hidden formBackground"></div>
+  <!-- form displayed inside modal -->
+	<form class="hidden form">
+		<button class="closer"><i aria-hidden="true" class="fa fa-times"></i></button> <legend class="legend"></legend> <input class="name" name="name" placeholder="Name of record" type="text"> <input class="cost" name="cost" placeholder="Cost in minutes" type="text"> <input class="category" name="category" placeholder="Category" type="text">
+		<div class="productivityParent" data-balloon="Is this productive or unproductive?" data-balloon-pos="up">
+			<label>Productivity:</label> <select class="productive" name="productive">
+				<option>
+					Select
+				</option>
+				<option>
+					Productive
+				</option>
+				<option>
+					Unproductive
+				</option>
+			</select>
+		</div>
+		<section class="modalButtons">
+			<button class="hidden btn submitRecorded" type="submit">Submit</button> <button class="hidden btn submitPlanned" type="submit">Submit</button> <button class="hidden btn deleteRecorded" data-balloon="Delete" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-trash"></i></button> <button class="hidden btn deletePlanned" data-balloon="Delete" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-trash"></i></button> <button class="hidden btn updateRecorded" data-balloon="Edit" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-pencil"></i></button> <button class="hidden btn updatePlanned" data-balloon="Edit" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-pencil"></i></button> <button class="hidden addPlannedRecord">Add to Records</button> <button class="reset" type="reset">Reset</button>
+		</section>
+	</form>
+	<script src="//code.jquery.com/jquery-3.0.0.min.js">
+	</script> 
+	<script src="https://use.fontawesome.com/8f440fa89f.js">
+	</script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js">
+	</script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	</script> 
+	<script src="index.js">
+	</script>
+</body>
 </html>

@@ -1,274 +1,248 @@
-
-
-html, body{
-  font-family: Raleway, sans-serif;
-  background: grey;
-height: 100%;
+ html, body {
+	font-family: Raleway, sans-serif;
+	background: grey;
+	height: 100%;
 }
-.sign-in{
-  color: #E45641;
+.sign-in {
+	color: #E45641;
 }
-.sign-up{
-  box-shadow: 1;
-   color: #44B3C2;
+.sign-up {
+	box-shadow: 1;
+	color: #44B3C2;
 }
-.question{
-  color: #ffb84d;
+.question {
+	color: #ffb84d;
 }
-.navRow{
-  background: rgba(255, 255, 255, .9);
+.navRow {
+	background: rgba(255, 255, 255, .9);
 }
-.navParent{
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  background: rgba(255, 255, 255, .5);
-
-  padding: 10px;
-  margin-top: 15px;
+.navParent {
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	background: rgba(255, 255, 255, .5);
+	padding: 10px;
+	margin-top: 15px;
 }
-
-.graph{
-  border: 1px solid black;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: darkgrey
+.graph {
+	border: 1px solid black;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background: darkgrey
 }
-
-.totalList{
-  border: 2px solid black;
-  background:white;
-width: 100%;
-  margin-bottom: 10px;
+.totalList {
+	border: 2px solid black;
+	background: white;
+	width: 100%;
+	margin-bottom: 10px;
 }
-.add{
-  margin-bottom: 10px;
-  margin-top: 10px;
+.add {
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
-.listedPlanned:hover{
-  background: #44B3C2;
+.listedPlanned:hover {
+	background: #44B3C2;
 }
-
-.listedRecord:hover{
-  background: #E45641;
+.listedRecord:hover {
+	background: #E45641;
 }
-.listedPlanned, .listedRecord{
-  cursor: pointer;
+.listedPlanned, .listedRecord {
+	cursor: pointer;
 }
-.selectContainer{
-  margin: auto;
+.selectContainer {
+	margin: auto;
 }
-
-.formBackground{
-  opacity: .7;
-  top: 0;
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  background-color: gray;
+.formBackground {
+	opacity: .7;
+	top: 0;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	background-color: gray;
 }
-label{
-  margin: auto;
+label {
+	margin: auto;
 }
-.productive{
-  border: 0;
-  padding-top: 1px;
-  padding-bottom: 1px;
+.productive {
+	border: 0;
+	padding-top: 1px;
+	padding-bottom: 1px;
 }
-.closer{
-  float: right;
-  top: 0;
-  right: 0;
-  padding: 0;
-  font-size: 15px;
+.closer {
+	float: right;
+	top: 0;
+	right: 0;
+	padding: 0;
+	font-size: 15px;
 }
-
-.productivityParent{
-  border: 2px solid rgb(238, 238, 238);
-  display: inline-block;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 1px;
-  background: white;
+.productivityParent {
+	border: 2px solid rgb(238, 238, 238);
+	display: inline-block;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1px;
+	background: white;
 }
-.modalButtons{
-  padding: 5px;
+.modalButtons {
+	padding: 5px;
 }
-legend{
-  color: white;
-  margin: auto;
-  padding: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  }
-  label{
-    padding-top: 1px;
-    padding-bottom: 1px;
-  }
-  .recordBG{
-    background: #E45641;
-    
-  }
-  .plannedBG{
-background: #44B3C2;
-  }
-  form{
-    
-    padding: 5px;
-    text-align: center;
-    height: max-content;
-    width: fit-content;
-    margin: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    
-  }
-.hidden{
-  display: none;
+legend {
+	color: white;
+	margin: auto;
+	padding: 10px;
+	font-size: 20px;
+	font-weight: bold;
 }
-.subtract{
-  background: orange;
-  border-left: 3px solid black;
-  border-right: 3px solid black;
+label {
+	padding-top: 1px;
+	padding-bottom: 1px;
 }
-
-tr{
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+.recordBG {
+	background: #E45641;
 }
-
-.hidden{
-visibility: hidden;
+.plannedBG {
+	background: #44B3C2;
 }
-
-input{
-  font-size: 20px;
-  margin: auto;
-  display: block;
+form {
+	padding: 5px;
+	text-align: center;
+	height: max-content;
+	width: fit-content;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 }
-
-canvas{
-  background: rgba(128, 128, 128, .65);
+.hidden {
+	display: none;
 }
-
-table{
-  background: white;
-  border: 1px solid black;
-  padding: 5px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5px;
-  
+.subtract {
+	background: orange;
+	border-left: 3px solid black;
+	border-right: 3px solid black;
 }
-.total{
-  border: 1px solid black;
-  text-align: center;
-  font-weight: bold;
-  }
-
-th{
- text-decoration: underline;
-  padding: 3px;
+tr {
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
 }
-.res{
-  padding: 3px;
+.hidden {
+	visibility: hidden;
 }
-
-.red{
-  background-color: red;
+input {
+	font-size: 20px;
+	margin: auto;
+	display: block;
 }
-
-header{
-  font-weight: bold;
-  font-size: 35px;
+canvas {
+	background: rgba(128, 128, 128, .65);
 }
-.parent{
-
-  height: 100%;
-  width: 100%;
+table {
+	background: white;
+	border: 1px solid black;
+	padding: 5px;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
 }
-
-h4{
-  text-align: center;
+.total {
+	border: 1px solid black;
+	text-align: center;
+	font-weight: bold;
 }
-
-.topNavRow{
-  position: fixed;
-  top: 0;
-  right: 0;
-  font-size: 0;
+th {
+	text-decoration: underline;
+	padding: 3px;
 }
-header, .topNavButtons, .topNavDateTime{
-  text-align: center;
-  width: 33%;
-  display: inline-block;
+.res {
+	padding: 3px;
 }
-.sectionTotal{
-  font-weight: bold;
-  margin: 5px;
+.red {
+	background-color: red;
 }
-
-.display{
-  
-  height: 100%;
-  margin-bottom: 15px;
-  margin-top: 15px;
-  padding: 10px;
-  text-align: center;
-  border: 1px solid black;
-  display: inline-block;
+header {
+	font-weight: bold;
+	font-size: 35px;
 }
-.parentHelpText{
-  /* text-align: center; */
+.parent {
+	height: 100%;
+	width: 100%;
 }
-.helpText{
-  padding: 5px;
-z-index: 1;
-  height: max-content;
-  width: 50%;
-  background: white;
-  margin: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+h4 {
+	text-align: center;
 }
-
-.recorded{
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  background:#E45641;
-  margin-right: 5px;
+.topNavRow {
+	position: fixed;
+	top: 0;
+	right: 0;
+	font-size: 0;
 }
-.planned{
-  margin-left: 5px;
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  background: rgba(68, 179, 194, .89)
+header, .topNavButtons, .topNavDateTime {
+	text-align: center;
+	width: 33%;
+	display: inline-block;
 }
-.totals{
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  font-size: 20px;
-  font-weight: bold;
-  background: rgba(255, 184, 77, .89);
+.sectionTotal {
+	font-weight: bold;
+	margin: 5px;
 }
-  .recordedTotal{
-  background: rgba(228, 86, 65, 0.89);
+.display {
+	height: 100%;
+	margin-bottom: 15px;
+	margin-top: 15px;
+	padding: 10px;
+	text-align: center;
+	border: 1px solid black;
+	display: inline-block;
 }
-.unspentTotal{
-  background: #ffb84d;
+.parentHelpText {
+	/* text-align: center; */
 }
-.plannedTotal{
-  background: #44B3C2
+.helpText {
+	padding: 5px;
+	z-index: 1;
+	height: max-content;
+	width: 50%;
+	background: white;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+.recorded {
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	background: #E45641;
+	margin-right: 5px;
+}
+.planned {
+	margin-left: 5px;
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	background: rgba(68, 179, 194, .89)
+}
+.totals {
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	font-size: 20px;
+	font-weight: bold;
+	background: rgba(255, 184, 77, .89);
+}
+.recordedTotal {
+	background: rgba(228, 86, 65, 0.89);
+}
+.unspentTotal {
+	background: #ffb84d;
+}
+.plannedTotal {
+	background: #44B3C2
 }
