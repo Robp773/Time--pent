@@ -1,3 +1,5 @@
+
+ 
  html, body {
 	font-family: Raleway, sans-serif;
 	background: grey;
@@ -17,12 +19,15 @@
 	background: rgba(255, 255, 255, .9);
 }
 .navParent {
+	
+	text-align: center;
 	-webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 	box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-	background: rgba(255, 255, 255, .5);
+	background: rgba(255, 255, 255, 1);
 	padding: 10px;
-	margin-top: 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 .graph {
 	border: 1px solid black;
@@ -48,6 +53,7 @@
 	background: #E45641;
 }
 .listedPlanned, .listedRecord {
+	font-size: 1em;
 	cursor: pointer;
 }
 .selectContainer {
@@ -171,32 +177,21 @@ header {
 h4 {
 	text-align: center;
 }
-.topNavRow {
-	position: fixed;
-	top: 0;
-	right: 0;
-	font-size: 0;
-}
-header, .topNavButtons, .topNavDateTime {
-	text-align: center;
-	width: 33%;
-	display: inline-block;
+
+.topNavButtons{
+	margin: auto;
 }
 .sectionTotal {
 	font-weight: bold;
 	margin: 5px;
 }
 .display {
-	height: 100%;
+	
+	height: fit-content;
 	margin-bottom: 15px;
-	margin-top: 15px;
-	padding: 10px;
 	text-align: center;
 	border: 1px solid black;
-	display: inline-block;
-}
-.parentHelpText {
-	/* text-align: center; */
+	
 }
 .helpText {
 	height: 100%;
@@ -231,7 +226,7 @@ header, .topNavButtons, .topNavDateTime {
 	-webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 	box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-	font-size: 20px;
+	font-size: 1em;
 	font-weight: bold;
 	background: rgba(255, 184, 77, .89);
 }
@@ -243,4 +238,31 @@ header, .topNavButtons, .topNavDateTime {
 }
 .plannedTotal {
 	background: #44B3C2
+}
+
+/* DESKTOP */
+@media only screen and (min-width: 640px) {
+
+.display{	
+	height: 100%;
+	margin-bottom: 15px;
+	margin-top: 15px;
+	width: 33%;
+	padding: 10px;
+}
+
+header, .topNavButtons, .topNavDateTime {
+    width: 33%;
+    text-align: center;
+    display: inline-block;
+}
+.navParent{z-index: 1;
+position: fixed;
+width: 100%;}
+}
+/* tablets */
+@media only screen and (min-height: 1000px) {
+	.display{
+		height: 75%;
+	}
 }
