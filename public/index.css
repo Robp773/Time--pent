@@ -1,9 +1,19 @@
 
  
  html, body {
+	
 	font-family: Raleway, sans-serif;
 	background: grey;
 	height: 100%;
+}
+/* body{
+	position: relative;
+    left: 35px;
+} */
+.chartjs-render-monitor {
+    -webkit-animation: chartjs-render-animation 0.001s;
+    animation: chartjs-render-animation 0.001s;
+	width: 100%;
 }
 .sign-in {
 	color: #E45641;
@@ -289,6 +299,8 @@ width: 100%;
 .recorded, .planned, .totals{
 	display: inline-block
 }
+
+
 .display{
 	height: 100%;
 	margin-bottom: 15px;

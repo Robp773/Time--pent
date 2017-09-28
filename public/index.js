@@ -529,13 +529,18 @@ $('.mobileRecords').click(function(){
   $('.recorded').css('display', 'block');
   $('.totals, .planned').css('display', 'none');
   $('.mobileBudget').css('padding', '3px');
+  // temporary fix for off center display columns in mobile layout
+  $('body').css('position', 'relative');
+  $('body').css('left', '35px');
 });
 
 $('.mobileToDos').click(function(){
   $('.mobileBudget').css('padding', '3px');
   $('.planned').css('display', 'block'); 
   $('.totals, .recorded').css('display', 'none');
-  
+  // temporary fix for off center display columns in mobile layout
+  $('body').css('position', 'relative');
+  $('body').css('left', '35px');
   
 });
 
@@ -544,7 +549,8 @@ $('.mobileBudget').click(function(){
   $('.totals').css('display', 'block');
   $('.recorded, .planned').css('display', 'none');
   $('.mobileBudget').css('padding', '10px');
-  
+  // temporary fix for off center display columns in mobile layout
+  $('body').css('position', 'static');
  
  
 });
