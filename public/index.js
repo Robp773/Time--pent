@@ -279,7 +279,6 @@ $('.submitPlanned').click(function(event) {
     productive: productive,
     category: category
   };
-  console.log(globalVars.unusedPastTime);
   // prevent user from planning more time than is left in the day.
   if (!(globalVars.unusedPastTime < cost)) {
     resetGlobal();
@@ -327,7 +326,6 @@ $('.recordedList').on('click', '.listedRecord', function() {
   let actualCost = numCost[0];
   let productive = $(this).closest('tr').find('.recordedProductive').text();
   let category = $(this).closest('tr').find('.recordedCategory').text();
-  let message = `${name} ${numCost} ${productive} ${category}`;
   $('.form input[name=name]').val(`${name}`);
   $('.form input[name=cost]').val(`${actualCost}`);
   $('.form input[name=category]').val(`${category}`);
@@ -384,7 +382,6 @@ function deleteRecord(data) {
     dataType: 'json',
     data: JSON.stringify(data),
     success: function() {
-      console.log('success function ran');
     }
   });
 }
@@ -527,6 +524,35 @@ $('.closer').click(function() {
 $('.helpButton').click(function() {
   $('.helpText, .formBackground').removeClass('hidden');
 });
+
+$('.mobileRecords').click(function(){
+  $('.recorded').css('display', 'block');
+  $('.totals, .planned').css('display', 'none');
+  $('.mobileBudget').css('padding', '3px');
+});
+
+$('.mobileToDos').click(function(){
+  $('.mobileBudget').css('padding', '3px');
+  $('.planned').css('display', 'block'); 
+  $('.totals, .recorded').css('display', 'none');
+  
+  
+});
+
+$('.mobileBudget').click(function(){ 
+  
+  $('.totals').css('display', 'block');
+  $('.recorded, .planned').css('display', 'none');
+  $('.mobileBudget').css('padding', '10px');
+  
+ 
+ 
+});
+
+if(($('.recorded').css('display')) && ($('.planned').css('display')) === 'none'){
+  $('.mobileBudget').css('padding', '10px');
+}
+
 $(document).ready(function() {
   loadRecorded();
   calcTimeDate();
