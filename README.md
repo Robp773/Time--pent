@@ -28,6 +28,10 @@ Heroku
 Charts.js
 Balloon.css
 
+## Attributions
+
+Landing page button - Sara Viera, developerdrive.com
+
 ## Future Updates
 
 Add sign-in/sign-up feature

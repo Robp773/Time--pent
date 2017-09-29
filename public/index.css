@@ -134,6 +134,58 @@ form {
 	bottom: 0;
 	right: 0;
 }
+
+.landingPageBg{
+	z-index: 1;
+	position: fixed;
+	background: rgba(128, 128, 128, .7);
+	width: 100%;
+	height: 100%;
+}
+.landingPage{
+	font-size: 1.5em;
+	z-index: 1;
+	background: white;
+	padding: 20px;
+	text-align: center;
+	height: max-content;
+	width: 75%;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+.landingBtn{
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-top: 10px;
+		font-weight: bold;
+		font-size: 1.5em;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		border: none;
+		background: #ffb84d;
+		color: #f2f2f2;
+	
+		border-radius: 5px;
+		position: relative;
+		box-sizing: border-box;
+		transition: all 750ms ease; 
+	
+}
+
+.landingBtn:hover{
+	
+		background: rgba(0,0,0,0);
+		color: #ffb84d;
+		box-shadow: inset 0 0 0 3px #ffb84d;
+	
+}
 .hidden {
 	display: none;
 }

@@ -11,6 +11,21 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.4.0/balloon.min.css" rel="stylesheet">
 </head>
 <body>
+		<div class="landingPageBg">
+			<div class="landingPage">
+			
+		If you were to 'spend' your time the same way you spend 
+			your money, what would be different?
+			<p>What if you treated the 1,440 minutes in a day like
+			 $1,440 in real money? Would you let your time slip by staring at the TV or would 
+			 make more concious decisions about what to put 
+			your time into?</p> 
+			Spend your time like money, track and record the major time expenditures of your daily
+			life, and gain insights into your productivity, daily habits, and progress towards goals.
+			<button class="landingBtn">Start</button>
+		</div>
+		
+			 </div>
   <!-- entire top row of elements -->
 	<div class="navParent">
 		<div>
@@ -32,6 +47,7 @@
 		</div>
 		
   </div>
+  
   <!-- row of recorded, planned, and totals sections -->
 	<div class="row parent">
 	<div class="mobileNavButtons">
@@ -40,7 +56,7 @@
 				<button class="mobileToDos">To Dos</button>
 			</div>
 		<div class="col-4 display recorded">
-			<h3>Records</h3>
+			<h3 data-balloon="Record what you have already done today." data-balloon-pos="up">Records</h3>
 			<div class="sectionTotal unRecordedMins" data-balloon="Minutes today that have passed without being recorded" data-balloon-pos="up"></div>
 			<canvas id="recordChart"></canvas>
 			<table class="recordedList">
@@ -53,7 +69,7 @@
 			</table><button class=" add addRecord" data-balloon="Add a Record" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-plus-square"></i></button>
 		</div>
 		<div class="col-4 display totals">
-			<h3>Budget Summary</h3>
+			<h3 data-balloon="A summary of your time spent, time planned, and time left today." data-balloon-pos="up">Budget Summary</h3>
 			<div class="sectionTotal totalsTime"></div>
 			<canvas id="totalChart"></canvas>
 			<table class="totalList">
@@ -64,7 +80,7 @@
 			</table>
 		</div>
 		<div class="col-4 display planned">
-			<h3>To Do's</h3>
+			<h3 data-balloon="Keep a list of things you want to do today but haven't had a chance to yet." data-balloon-pos="up">To Do's</h3>
 			<div class="sectionTotal unUsedPlanned" data-balloon="Total minutes left in the day that are not planned." data-balloon-pos="up"></div>
 			<canvas id="plannedChart"></canvas>
 			<table class="plannedList">

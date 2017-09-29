@@ -555,6 +555,10 @@ $('.mobileBudget').click(function(){
  
 });
 
+$('.landingBtn').click(function(){
+$('.landingPageBg, .landingPage').addClass('hidden');
+});
+
 if(($('.recorded').css('display')) && ($('.planned').css('display')) === 'none'){
   $('.mobileBudget').css('padding', '10px');
 }
