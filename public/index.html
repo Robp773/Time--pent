@@ -11,28 +11,17 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.4.0/balloon.min.css" rel="stylesheet">
 </head>
 <body>
-		<div class="landingPageBg">
-			<div class="landingPage">
-			
-		If you were to 'spend' your time the same way you spend 
-			your money, what would be different?
-			<p>What if you treated the 1,440 minutes in a day like
-			 $1,440 in real money? Would you let your time slip by staring at the TV or would 
-			 make more concious decisions about what to put 
-			your time into?</p> 
-			Spend your time like money, track and record the major time expenditures of your daily
-			life, and gain insights into your productivity, daily habits, and progress towards goals.
-			<button class="landingBtn">Start</button>
+	<div class="hidden landingPageBg">
+		<div class="hidden landingPage">
+			If you were to 'spend' your time the same way you spend your money, what would be different?
+			<p>What if you treated the 1,440 minutes in a day like $1,440 in real money? Would you let your time slip by staring at the TV or would make more concious decisions about what to put your time into?</p>Spend your time like money, track and record the major time expenditures of your daily life, and gain insights into your productivity, daily habits, and progress towards goals. <button class="landingBtn">Start</button>
 		</div>
-		
-			 </div>
-  <!-- entire top row of elements -->
+	</div><!-- entire top row of elements -->
 	<div class="navParent">
 		<div>
 			<header>
 				Time <i aria-hidden="true" class="money fa fa-usd"></i>pent
-      </header>
-      <!-- sign up + sign in + 'help' buttons -->
+			</header><!-- sign up + sign in + 'help' buttons -->
 			<div class="top topNavButtons">
 				<button><i aria-hidden="true" class="sign-in fa fa-sign-in"></i></button> <button class="helpButton"><i aria-hidden="true" class="question fa fa-question-circle"></i></button> <button><i aria-hidden="true" class="sign-up fa fa-user-plus"></i></button>
 			</div>
@@ -45,16 +34,11 @@
 				</div>
 			</div>
 		</div>
-		
-  </div>
-  
-  <!-- row of recorded, planned, and totals sections -->
+	</div><!-- row of recorded, planned, and totals sections -->
 	<div class="row parent">
-	<div class="mobileNavButtons">
-				<button class="mobileRecords">Records</button>
-				<button class="mobileBudget">Budget Totals</button>
-				<button class="mobileToDos">To Dos</button>
-			</div>
+		<div class="mobileNavButtons">
+			<button class="mobileRecords">Records</button> <button class="mobileBudget">Budget Totals</button> <button class="mobileToDos">To Dos</button>
+		</div>
 		<div class="col-4 display recorded">
 			<h3 data-balloon="Record what you have already done today." data-balloon-pos="up">Records</h3>
 			<div class="sectionTotal unRecordedMins" data-balloon="Minutes today that have passed without being recorded" data-balloon-pos="up"></div>
@@ -71,7 +55,12 @@
 		<div class="col-4 display totals">
 			<h3 data-balloon="A summary of your time spent, time planned, and time left today." data-balloon-pos="up">Budget Summary</h3>
 			<div class="sectionTotal totalsTime"></div>
+			<div class="totalsChartButtons">
+				<h2 class="chartHeading">Charts</h2><button class="productivityButton">Productivity</button> <button class="budgetButton">Budget</button> <button class="categoriesButton">Categories</button>
+			</div>
 			<canvas id="totalChart"></canvas>
+			<canvas id="categoryChart"></canvas>
+			<canvas id="productiveChart"></canvas>
 			<table class="totalList">
 				<tr>
 					<th>Sub Totals</th>
@@ -90,53 +79,41 @@
 					<th>Type</th>
 					<th>Est. Cost</th>
 				</tr>
-			</table>
-			<button class="add addPlanned" data-balloon="Add a Future Plan" data-balloon-pos="up">
-				<i aria-hidden="true" class="fa fa-plus-square"></i></button>
+			</table><button class="add addPlanned" data-balloon="Add a Future Plan" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-plus-square"></i></button>
 		</div>
-  </div>
-  <!-- help button when clicked displays this -->
+	</div><!-- help button when clicked displays this -->
 	<div class="hidden helpText">
 		<button class="closer"><i aria-hidden="true" class="fa fa-times"></i></button>
 		<h3>Time $pent</h3>
-		<p>Time $pent is an app that was designed to help users see their
-				 time through a different perspective. Instead of seeing time as 
-				 a rigid chronological system of hours, minutes, and seconds, users 
-				 can gauge how much time they really have in a similar way to how they 
-				 plan their budget while looking at their bank account. Instead of
-				  planning out what will happen at some specific time in the day, 
-				  users can budget what they "spend" their time on, and keep track 
-				  of their "budget" of time throughout the day.</p>
-				<span>Key terms to help make sense of the app...</span>
-				<p><b>Daily Budget</b>- refers to how many minutes you have to make use of in one day. </p>
-				<span>(24 hours x 60 minutes = 1,440) </span>
-				<p><b>Records</b>- an event which has already taken place that you 
-				want to log. For example, if you wake up at 7:30 AM, you could 
-				immediately log an item called "sleep" alongwith the amount of time it 
-				took in minutes (probably around 400 minutes) and other descriptive details. 
-				The amount of time it took will be subtracted from your daily budget and 
-				the item and the other details you logged will be added to the records column. </p>
-				<p><b>To Do's</b>- work as you would expect-events that have not yet happened that 
-				you want to eventually accomplish before the end of the day. Adding a new To Do 
-				works the same way as adding a record except that the amount of time required for
-				 the To Do will be subtracted from the number of minutes left in the day. </p>
-
-				<p><b>Budget Summary</b>- the middle column that does all of the math for the app. 
-				Basically 1,440  minus your recorded minutes minus the time that has passed that 
-				was not recorded  equals the amount of time left in the day or "Current Budget". 
-				Using the Current Budget, we subtract the cost of your planned To Dos to get the 
-				final number of minutes which represents the free and unplanned time in your day.
-				 When you subtract your future sleep from this number, you  get an idea of the time 
-				 you really have to work with. 
-				To make all of these numbers easier to track and understand, there are charts inside
-				 each column to help you visualize the numbers and statistics taken from your entries.</p>
-  </div>
-  <!-- modal grey background -->
-  <div class="hidden formBackground"></div>
-  <!-- form displayed inside modal -->
+		<p>Time $pent is an app that was designed to help users see their time through a different perspective. Instead of seeing time as a rigid chronological system of hours, minutes, and seconds, users can gauge how much time they really have in a similar way to how they plan their budget while looking at their bank account. Instead of planning out what will happen at some specific time in the day, users can budget what they "spend" their time on, and keep track of their "budget" of time throughout the day.</p><span>Key terms to help make sense of the app...</span>
+		<p><b>Daily Budget</b>- refers to how many minutes you have to make use of in one day.</p><span>(24 hours x 60 minutes = 1,440)</span>
+		<p><b>Records</b>- an event which has already taken place that you want to log. For example, if you wake up at 7:30 AM, you could immediately log an item called "sleep" alongwith the amount of time it took in minutes (probably around 400 minutes) and other descriptive details. The amount of time it took will be subtracted from your daily budget and the item and the other details you logged will be added to the records column.</p>
+		<p><b>To Do's</b>- work as you would expect-events that have not yet happened that you want to eventually accomplish before the end of the day. Adding a new To Do works the same way as adding a record except that the amount of time required for the To Do will be subtracted from the number of minutes left in the day.</p>
+		<p><b>Budget Summary</b>- the middle column that does all of the math for the app. Basically 1,440 minus your recorded minutes minus the time that has passed that was not recorded equals the amount of time left in the day or "Current Budget". Using the Current Budget, we subtract the cost of your planned To Dos to get the final number of minutes which represents the free and unplanned time in your day. When you subtract your future sleep from this number, you get an idea of the time you really have to work with. To make all of these numbers easier to track and understand, there are charts inside each column to help you visualize the numbers and statistics taken from your entries.</p>
+	</div><!-- modal grey background -->
+	<div class="hidden formBackground"></div><!-- form displayed inside modal -->
 	<form class="hidden form">
-		<button class="closer"><i aria-hidden="true" class="fa fa-times"></i></button> <legend class="legend"></legend> <input class="name" name="name" placeholder="Name of record" type="text"> <input class="cost" name="cost" placeholder="Cost in minutes" type="text"> <input class="category" name="category" placeholder="Category" type="text">
-		<div class="productivityParent" data-balloon="Is this productive or unproductive?" data-balloon-pos="up">
+		<button class="closer"><i aria-hidden="true" class="fa fa-times"></i></button> <legend class="legend"></legend> <input class="name" name="name" placeholder="Name of record" type="text"> <input class="cost" name="cost" placeholder="Cost in minutes" type="text">
+		<div class="categoryParent">
+			<label data-balloon="Is this for a one time task, part of your routine, project, or to address a problem?" data-balloon-pos="right">Category</label> <select class="category" name="category">
+				<option>
+					Other
+				</option>
+				<option>
+					One Time
+				</option>
+				<option>
+					Routine
+				</option>
+				<option>
+					Project
+				</option>
+				<option>
+					Problem
+				</option>
+			</select>
+		</div>
+		<div class="productivityParent" data-balloon="Is this productive or unproductive?" data-balloon-pos="right">
 			<label>Productivity:</label> <select class="productive" name="productive">
 				<option>
 					Select
@@ -150,13 +127,7 @@
 			</select>
 		</div>
 		<section class="modalButtons">
-			<button class="hidden btn submitRecorded" type="submit">Submit</button>
-			<button class="hidden btn submitPlanned" type="submit">Submit</button> 
-			<button class="hidden btn deleteRecorded" data-balloon="Delete" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-trash"></i></button>
-			<button class="hidden btn deletePlanned" data-balloon="Delete" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-trash"></i></button>
-			<button class="hidden btn updateRecorded" data-balloon="Edit" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-pencil"></i></button> 
-			<button class="hidden btn updatePlanned" data-balloon="Edit" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-pencil"></i></button> 
-			<button class="hidden addPlannedRecord">Mark as Complete</button> <button class="reset" type="reset">Reset</button>
+			<button class="hidden btn submitRecorded" type="submit">Submit</button> <button class="hidden btn submitPlanned" type="submit">Submit</button> <button class="hidden btn deleteRecorded" data-balloon="Delete" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-trash"></i></button> <button class="hidden btn deletePlanned" data-balloon="Delete" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-trash"></i></button> <button class="hidden btn updateRecorded" data-balloon="Edit" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-pencil"></i></button> <button class="hidden btn updatePlanned" data-balloon="Edit" data-balloon-pos="up"><i aria-hidden="true" class="fa fa-pencil"></i></button> <button class="hidden addPlannedRecord">Mark as Complete</button> <button class="reset" type="reset">Reset</button>
 		</section>
 	</form>
 	<script src="//code.jquery.com/jquery-3.0.0.min.js">

@@ -11,6 +11,7 @@
     "express": "^4.15.4",
     "faker": "^4.1.0",
     "jquery-confirm": "^3.3.2",
+    "js-cookie": "^2.1.4",
     "mongoose": "^4.11.11",
     "nodemon": "^1.12.0",
     "normalize.css": "^7.0.0"

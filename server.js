@@ -74,12 +74,7 @@ app.post('/homePlanned', function(req, res) {
       console.error(message);
       return res.status(400).send(message);
     }
-    // else if(req.body.name || req.body.category === ''){
-    //   console.log('error worked');
-    //   console.log(req.body);
-    //   console.log(req.body.name);
-    //   return res.status(400).send('error');
-    // }
+
   }
   PlannedMin.create({
     name: req.body.name,

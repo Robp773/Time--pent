@@ -1,4 +1,5 @@
 'use strict';
+// let Cookies =  require('js-cookie');
 let globalVars = {
   // total mins in a day
   dailyBudget: 1440,
@@ -15,10 +16,47 @@ let globalVars = {
   // mins passed as of current time
   totalMinsPassed: 0,
   // mins that have passed that were not recorded
-  unusedPastTime: 0
+  unusedPastTime: 0,
+  oneTimeCost: 0,
+  projectCost: 0,
+  problemCost: 0,
+  routineCost: 0,
+  productiveCost: 0,
+  unproductiveCost: 0
 };
+$('#productiveChart, #categoryChart').hide();
+$('.productivityButton').click(function() {
+  $('#productiveChart').show();
+  $('#categoryChart, #totalChart').hide();
+});
+$('.categoriesButton').click(function() {
+  $('#categoryChart').show();
+  $('#productiveChart, #totalChart').hide();
+});
+$('.budgetButton').click(function() {
+  $('#totalChart').show();
+  $('#productiveChart, #categoryChart').hide();
+});
 // tracks expenses with time passed and fills out totals column
 function calculateTotals() {
+  // console.log(globalVars.recordedData);
+  globalVars.recordedData.forEach(function(item) {
+    if (item.category === 'One Time') {
+      // console.log(item.cost);
+      globalVars.oneTimeCost = globalVars.oneTimeCost + item.cost;
+    } else if (item.category === 'Routine') {
+      globalVars.routineCost = globalVars.routineCost + item.cost;
+    } else if (item.category === 'Project') {
+      globalVars.projectCost = globalVars.projectCost + item.cost;
+    } else if (item.category === 'Problem') {
+      globalVars.problemCost = globalVars.problemCost + item.cost;
+    }
+    if (item.productive === 'Productive') {
+      globalVars.productiveCost = globalVars.productiveCost + item.cost;
+    } else if (item.productive === 'Unproductive') {
+      globalVars.unproductiveCost = globalVars.unproductiveCost + item.cost;
+    }
+  });
   globalVars.recordedData.forEach(function(item) {
     globalVars.recordedCost = globalVars.recordedCost + item.cost;
   });
@@ -111,6 +149,7 @@ function calcTimeDate() {
   let year = currentTime.getFullYear();
   $('.topNavDate').html(`${dayName} ${monthName} ${numberDay}, ${year}`);
 }
+
 function loadRecorded() {
   $.ajax({
     url: '/homeRecorded',
@@ -122,11 +161,12 @@ function loadRecorded() {
       // needed for calculateTotals function, cannot pass as argument 
       // because calculate totals is also called by loadPlanned()
       globalVars.recordedData = data;
-      loadPlanned();
       populateRecorded(data);
+      loadPlanned();
     }
   });
 }
+
 function populateRecorded(data) {
   $('.recordedList').empty();
   $('.recordedList').append(` <tr>
@@ -183,6 +223,7 @@ function populatePlanned(data) {
 }
 // builds 3 charts from chart.js
 function buildChart(pastFreeTime, todaysUnusedMins) {
+  console.log(`productive cost ${globalVars.productiveCost}`);
   Chart.defaults.global.defaultFontSize = 13;
   Chart.defaults.global.defaultFontColor = 'black';
   Chart.defaults.global.layout.padding = 0;
@@ -196,6 +237,45 @@ function buildChart(pastFreeTime, todaysUnusedMins) {
       datasets: [{
         label: 'Time Spent',
         data: [globalVars.recordedCost, globalVars.plannedCost, pastFreeTime, todaysUnusedMins],
+        backgroundColor: ['#E45641', '#44B3C2', '#ffb84d', '#42f465'],
+        borderColor: ['#FFFFF', '#FFFFF', '#FFFFF', '#FFFFF', '#FFFFF', ],
+        borderWidth: .5
+      }]
+    },
+    options: {
+      title: {
+        fontSize: 25,
+      }
+    }
+  });
+  const ctxProductive = $('#productiveChart');
+  ctxTotal.height = 250;
+  const productiveChart = new Chart(ctxProductive, {
+    type: 'pie',
+    data: {
+      labels: ['Productive', 'Unproductive'],
+      datasets: [{
+        label: 'Time Spent',
+        data: [globalVars.productiveCost, globalVars.unproductiveCost],
+        backgroundColor: ['#E45641', '#44B3C2'],
+        borderColor: ['#FFFFF', '#FFFFF'],
+        borderWidth: .5
+      }]
+    },
+    options: {
+      title: {
+        fontSize: 25,
+      }
+    }
+  });
+  const ctxCategory = $('#categoryChart');
+  const categoryChart = new Chart(ctxCategory, {
+    type: 'pie',
+    data: {
+      labels: ['One Timers', 'Routines', 'Projects', 'Problems'],
+      datasets: [{
+        label: 'Time Spent',
+        data: [globalVars.oneTimeCost, globalVars.routineCost, globalVars.projectCost, globalVars.problemCost],
         backgroundColor: ['#E45641', '#44B3C2', '#ffb84d', '#42f465'],
         borderColor: ['#FFFFF', '#FFFFF', '#FFFFF', '#FFFFF', '#FFFFF', ],
         borderWidth: .5
@@ -260,7 +340,7 @@ $('.submitRecorded').click(function(event) {
         loadRecorded();
       }
     });
-  } 
+  }
   // prevent user from recording more minutes than have actually passed at that point. 
   else {
     alert(`You tried to spend ${cost} minutes but only have ${globalVars.unusedPastTime} minutes to spend`);
@@ -296,6 +376,7 @@ function addRecorded(data) {
     dataType: 'json',
     data: JSON.stringify(data),
     success: function() {
+      calculateTotals();
       loadRecorded();
     }
   });
@@ -328,7 +409,7 @@ $('.recordedList').on('click', '.listedRecord', function() {
   let category = $(this).closest('tr').find('.recordedCategory').text();
   $('.form input[name=name]').val(`${name}`);
   $('.form input[name=cost]').val(`${actualCost}`);
-  $('.form input[name=category]').val(`${category}`);
+  $('.form select[name=category]').val(`${category}`);
   $('.form select[name=productive]').val(`${productive}`);
   let data = {
     name: name,
@@ -348,9 +429,8 @@ $('.recordedList').on('click', '.listedRecord', function() {
     // current values of the inputs to account for changes made
     let newName = $('.form input[name=name]').val();
     let newCost = $('.form input[name=cost]').val().match(/\d+/)[0];
-    let newCategory = $('.form input[name=category]').val();
+    let newCategory = $('.form select[name=category]').val();
     let newProductive = $('.form select[name=productive]').val();
-    
     let newData = {
       name: newName,
       cost: newCost,
@@ -381,8 +461,7 @@ function deleteRecord(data) {
     type: 'DELETE',
     dataType: 'json',
     data: JSON.stringify(data),
-    success: function() {
-    }
+    success: function() {}
   });
 }
 
@@ -414,7 +493,7 @@ $('.plannedList').on('click', '.listedPlanned', function() {
   let category = $(this).closest('tr').find('.plannedCategory').text();
   $('.form input[name=name]').val(`${name}`);
   $('.form input[name=cost]').val(`${cost}`);
-  $('.form input[name=category]').val(`${category}`);
+  $('.form select[name=category]').val(`${category}`);
   $('.form select[name=productive]').val(`${productive}`);
   let data = {
     name: name,
@@ -455,7 +534,7 @@ $('.plannedList').on('click', '.listedPlanned', function() {
     event.preventDefault();
     let newName = $('.form input[name=name]').val();
     let newCost = $('.form input[name=cost]').val().match(/\d+/)[0];
-    let newCategory = $('.form input[name=category]').val();
+    let newCategory = $('.form select[name=category]').val();
     let newProductive = $('.form select[name=productive]').val();
     let dataForRecord = {
       name: newName,
@@ -463,6 +542,7 @@ $('.plannedList').on('click', '.listedPlanned', function() {
       productive: newProductive,
       category: newCategory
     };
+    console.log(dataForRecord);
     deletePlanned(data);
     addRecorded(dataForRecord);
   });
@@ -524,45 +604,29 @@ $('.closer').click(function() {
 $('.helpButton').click(function() {
   $('.helpText, .formBackground').removeClass('hidden');
 });
-
-$('.mobileRecords').click(function(){
+$('.mobileRecords').click(function() {
   $('.recorded').css('display', 'block');
   $('.totals, .planned').css('display', 'none');
   $('.mobileBudget').css('padding', '3px');
-  // temporary fix for off center display columns in mobile layout
   $('body').css('position', 'relative');
   $('body').css('left', '35px');
 });
-
-$('.mobileToDos').click(function(){
+$('.mobileToDos').click(function() {
   $('.mobileBudget').css('padding', '3px');
-  $('.planned').css('display', 'block'); 
+  $('.planned').css('display', 'block');
   $('.totals, .recorded').css('display', 'none');
-  // temporary fix for off center display columns in mobile layout
   $('body').css('position', 'relative');
   $('body').css('left', '35px');
-  
 });
-
-$('.mobileBudget').click(function(){ 
-  
+$('.mobileBudget').click(function() {
   $('.totals').css('display', 'block');
   $('.recorded, .planned').css('display', 'none');
   $('.mobileBudget').css('padding', '10px');
-  // temporary fix for off center display columns in mobile layout
   $('body').css('position', 'static');
- 
- 
 });
-
-$('.landingBtn').click(function(){
-$('.landingPageBg, .landingPage').addClass('hidden');
-});
-
-if(($('.recorded').css('display')) && ($('.planned').css('display')) === 'none'){
+if (($('.recorded').css('display')) && ($('.planned').css('display')) === 'none') {
   $('.mobileBudget').css('padding', '10px');
 }
-
 $(document).ready(function() {
   loadRecorded();
   calcTimeDate();
