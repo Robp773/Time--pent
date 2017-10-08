@@ -322,16 +322,16 @@ $('.submitRecorded').click(function(event) {
   let name = $('.name').val();
   let category = $('.category').val();
   let productive = $('.productive').val();
-  let cost = $('.cost').val();
-  
-
+  let cost = Number($('.cost').val());
 
   if (cost > globalVars.unusedPastTime){
     alert(`You tried to spend ${cost} minutes but only have ${globalVars.unusedPastTime} minutes to spend`);
   }
-
   else if(name == '' || cost == ''){
     alert('Name and Cost must be entered');
+  }
+  else if(isNaN($('.cost').val())){
+    alert('Only numbers can be entered into the cost field');
   }
  
   // prevent user from recording more minutes than have actually passed at that point. 
@@ -361,7 +361,7 @@ $('.submitPlanned').click(function(event) {
   let name = $('.name').val();
   let category = $('.category').val();
   let productive = $('.productive').val();
-  let cost = $('.cost').val();
+  let cost = Number($('.cost').val());
   let data = {
     name: name,
     cost: cost,
@@ -373,11 +373,13 @@ $('.submitPlanned').click(function(event) {
     console.log(globalVars.todaysUnusedMins);
     alert(`You tried to spend ${cost} minutes but only have ${globalVars.todaysUnusedMins} minutes to spend`);
   }
-
   else if(name == '' || cost == ''){
     alert('Name and Cost must be entered');
   }
-  else {
+  else if(isNaN($('.cost').val())){
+    alert('Only numbers can be entered into the cost field');
+  }
+  else{
     resetGlobal();
     addPlanned(data);
   }
