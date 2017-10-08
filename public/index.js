@@ -400,7 +400,7 @@ $('.recordedList').on('click', '.listedRecord', function() {
   $('.form, .formBackground, .deleteRecorded, .updateRecorded').removeClass('hidden');
   $('.submitRecorded, .submitPlanned').addClass('hidden');
   $('.form ').addClass('recordBG');
-  $('.legend').html('Edit or Delete');
+  $('.legend').html('Record');
   let name = $(this).closest('tr').find('.recordedName').text();
   let cost = $(this).closest('tr').find('.recordedCost').text();
   let numCost = cost.match(/\d+/);
@@ -483,7 +483,7 @@ $('.plannedList').on('click', '.listedPlanned', function() {
   $('.form, .formBackground, .deletePlanned, .updatePlanned, .addPlannedRecord').removeClass('hidden');
   $('.submitRecorded, .submitPlanned').addClass('hidden');
   $('.form ').addClass('plannedBG');
-  $('.legend').html('Edit, Delete, or Mark Completed');
+  $('.legend').html('To Do');
   // getting the table data text values from the tr that was clicked on.
   let name = $(this).closest('tr').find('.plannedName').text();
   let cost = $(this).closest('tr').find('.plannedCost').text();
