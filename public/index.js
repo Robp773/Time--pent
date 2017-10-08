@@ -22,7 +22,8 @@ let globalVars = {
   problemCost: 0,
   routineCost: 0,
   productiveCost: 0,
-  unproductiveCost: 0
+  unproductiveCost: 0,
+  todaysUnusedMins: 0
 };
 $('#productiveChart, #categoryChart').hide();
 $('.productivityButton').click(function() {
@@ -39,10 +40,8 @@ $('.budgetButton').click(function() {
 });
 // tracks expenses with time passed and fills out totals column
 function calculateTotals() {
-  // console.log(globalVars.recordedData);
   globalVars.recordedData.forEach(function(item) {
     if (item.category === 'One Time') {
-      // console.log(item.cost);
       globalVars.oneTimeCost = globalVars.oneTimeCost + item.cost;
     } else if (item.category === 'Routine') {
       globalVars.routineCost = globalVars.routineCost + item.cost;
@@ -78,7 +77,9 @@ function calculateTotals() {
   // Unspent time in the future based on how much time is left in the day and planned and recorded expenses
   let futureFreeTime = 1440 - totalMinsPassed;
   let todaysUnusedMins = futureFreeTime - globalVars.plannedCost;
+  globalVars.todaysUnusedMins = todaysUnusedMins;
   buildChart(pastFreeTime, todaysUnusedMins);
+  
   $('.unUsedPlanned').html(`Unplanned Minutes: ${todaysUnusedMins}`);
   $('.unRecordedMins').html(`Unrecorded Minutes: ${pastFreeTime}`);
   $('.totalList').empty();
@@ -223,7 +224,6 @@ function populatePlanned(data) {
 }
 // builds 3 charts from chart.js
 function buildChart(pastFreeTime, todaysUnusedMins) {
-  console.log(`productive cost ${globalVars.productiveCost}`);
   Chart.defaults.global.defaultFontSize = 13;
   Chart.defaults.global.defaultFontColor = 'black';
   Chart.defaults.global.layout.padding = 0;
@@ -323,7 +323,19 @@ $('.submitRecorded').click(function(event) {
   let category = $('.category').val();
   let productive = $('.productive').val();
   let cost = $('.cost').val();
-  if (!(cost > globalVars.unusedPastTime)) {
+  
+
+
+  if (cost > globalVars.unusedPastTime){
+    alert(`You tried to spend ${cost} minutes but only have ${globalVars.unusedPastTime} minutes to spend`);
+  }
+
+  else if(name == '' || cost == ''){
+    alert('Name and Cost must be entered');
+  }
+ 
+  // prevent user from recording more minutes than have actually passed at that point. 
+  else {
     resetGlobal();
     $.ajax({
       url: '/homeRecorded',
@@ -340,10 +352,7 @@ $('.submitRecorded').click(function(event) {
         loadRecorded();
       }
     });
-  }
-  // prevent user from recording more minutes than have actually passed at that point. 
-  else {
-    alert(`You tried to spend ${cost} minutes but only have ${globalVars.unusedPastTime} minutes to spend`);
+   
   }
 });
 // submit button from submit planned modal
@@ -359,13 +368,23 @@ $('.submitPlanned').click(function(event) {
     productive: productive,
     category: category
   };
-  // prevent user from planning more time than is left in the day.
-  if (!(globalVars.unusedPastTime < cost)) {
+  
+  if (cost > globalVars.todaysUnusedMins){
+    console.log(globalVars.todaysUnusedMins);
+    alert(`You tried to spend ${cost} minutes but only have ${globalVars.todaysUnusedMins} minutes to spend`);
+  }
+
+  else if(name == '' || cost == ''){
+    alert('Name and Cost must be entered');
+  }
+  else {
     resetGlobal();
     addPlanned(data);
-  } else {
-    alert('You tried to spend more mins than have passed so far today');
   }
+
+
+    
+  
 });
 
 function addRecorded(data) {
@@ -464,7 +483,7 @@ function deleteRecord(data) {
     success: function() {}
   });
 }
-
+deletePlanned({name: ''});
 function updateRecorded(updateData) {
   $.ajax({
     url: '/homeRecorded',
@@ -501,6 +520,7 @@ $('.plannedList').on('click', '.listedPlanned', function() {
     productive: productive,
     category: category
   };
+  console.log(data);
   $('.deletePlanned').click(function(event) {
     event.preventDefault();
     deletePlanned(data);
@@ -542,7 +562,6 @@ $('.plannedList').on('click', '.listedPlanned', function() {
       productive: newProductive,
       category: newCategory
     };
-    console.log(dataForRecord);
     deletePlanned(data);
     addRecorded(dataForRecord);
   });
