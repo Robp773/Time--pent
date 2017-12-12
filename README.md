@@ -6,7 +6,7 @@ https://tranquil-reef-93096.herokuapp.com/
 
 # Introduction
 
-Time $pent is an app made to help users see time differently and use it more effetively. You are given a 'budget' (total number of minutes in a day) and can go about 'spending' this time much like you would real money, hence the whole '$pent' gimmick. After entries have been made into the recorded and planned categories, charts will be populated with the data from your daily activity to offer visualizations on how your time was spent. 
+Time $pent is an app made to help users see time differently and use it more effectively. You are given a 'budget' (total number of minutes in a day) and can go about 'spending' this time much like you would real money, hence the whole '$pent' gimmick. After entries have been made into the recorded and planned categories, charts will be populated with the data from your daily activity to offer visualizations on how your time was spent. 
 
 # Directions
 
